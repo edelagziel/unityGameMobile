@@ -1,6 +1,6 @@
 # [Game name]
 
-**Team:** [Name 1] · [Name 2] · [Name 3]
+**Team:** [eden lagziel] · [alan zirkiev] 
 **Course:** Mobile Game Development, Shenkar
 
 ## The game in one sentence
