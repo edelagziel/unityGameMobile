@@ -1,10 +1,10 @@
 # Squad Pack
- 
+
 **Team:** Eden Lagziel · Alan Zirkiev
 **Course:** Mobile Game Development, Shenkar
- 
+
 ## The game in one sentence
-Summon soldiers and weapons, fit them into a small bag grid and merge them into stronger tiers, then watch your squad fight waves of enemies on its own.
+Summon soldiers and weapons, fit them into a small bag grid and merge them into stronger tiers, then watch your squad fight waves of enemies while you play and merge battle cards.
 
 ## How to open and build
 1. Open the project in Unity 6 LTS (the exact version is on Moodle).
