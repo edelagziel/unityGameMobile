@@ -1,178 +1,68 @@
-# Pitch: Battle Forge
-**Working Title:** Battle Forge  
+# Battle Forge — Game Concept One-Pager
+**Version:** 0.3 — Concept Design  
 **Team:** Eden Lagziel, Alan Zirkiev  
 **Platform:** Mobile (Portrait), Unity  
-**Genre:** Real-Time Strategy / Crafting / Card Battler
-
-**References:** *Battle Bag: War Zone*, *Stick War: Legacy*, *The Battle Cats*, *Minecraft*, *Yu-Gi-Oh!* and *Archero*.
+**Genre:** Real-Time Strategy / Crafting / Card Battler  
+**Inspirations:** Battle Bag: War Zone, Stick War: Legacy, Minecraft, Yu-Gi-Oh!
 
 ## High Concept
 
-Battle Forge is a real-time fantasy strategy game where players craft their armies, manage resources, and use tactical cards to outsmart their enemies.
+Battle Forge is a real-time fantasy strategy game where players craft troops and tactical cards while commanding an army along a battlefield between two opposing bases.
 
-Two armies fight along a horizontal battlefield between opposing bases. Players collect gold and materials, craft troops and special cards, and make tactical decisions while the battle continues.
+Players must balance economic growth, army production, and tactical card usage to outsmart their opponents.
 
-**Our twist:** Crafting is not just preparation — it happens during combat. Players must decide whether to spend their resources on stronger troops or create spells and traps that can change the outcome of the battle.
+**Unique Hook:** Every crafted troop, squad, spell, or trap becomes a playable card. Players decide when to deploy their creations while continuously adapting to battlefield events.
 
 ## Core Gameplay Loop
 
-1. **Earn:** Generate gold over time and collect materials from defeated enemies.
-2. **Buy:** Spend gold on additional materials or troops through an in-battle shop.
-3. **Craft:** Combine materials to create troops, squads, spells, or traps.
-4. **Deploy:** Send purchased or crafted troops into battle without paying an additional mana cost.
-5. **React:** Use tactical cards, activate spells, and prepare traps in response to battlefield events.
-6. **Adapt:** Collect more resources and adjust the strategy as the battle develops.
+**Earn → Buy / Upgrade → Craft → Play Cards → Fight → Adapt**
 
-The loop repeats throughout a real-time battle.
+1. **Earn:** Generate gold over time, collect materials from defeated enemies, and use economic units to produce additional resources.
+2. **Invest:** Purchase materials, improve income, upgrade base defenses, or build a stronger army.
+3. **Craft:** Combine materials on a 3×3 crafting grid to discover recipes and create troops or tactical cards.
+4. **Deploy:** Crafted units and squads become cards showing their quantities. Players choose when to deploy them.
+5. **React:** Draw cards from a prepared deck and activate spells, actions, or traps at strategic moments.
+6. **Adapt:** Change army composition and resource investments as the battle evolves.
 
 ## Core Mechanics
 
-### 1. Real-Time Combat
+**Real-Time Combat:** Troops move and fight along a single horizontal route. Players deploy reinforcements, respond to enemy actions, and attempt to destroy the opposing base.
 
-- Two opposing armies fight along a single horizontal route.
-- Troops move and engage enemies in real time.
-- Players decide when to deploy reinforcements and use tactical abilities.
-- Tactical commands and target priorities are potential additional controls.
-- The initial battle objective is to destroy the opposing base.
-- The battle format does not depend on fixed waves.
+**Crafting:** Recipes are discovered through a 3×3 grid. The three most recently crafted recipes appear in Quick Craft, allowing fast repeat crafting. Crafting does not pause combat.
 
-### 2. Battle Economy
+**Cards:** Players start with a small hand and draw a random card from their prepared deck approximately every 15–20 seconds. Cards include spells, tactical actions, and traps. Crafting can also produce cards directly during battle. Played cards are consumed for that use, with no additional mana cost.
 
-- Gold accumulates automatically during battle.
-- Defeating enemies can provide gold and crafting materials.
-- Players can purchase materials through an in-battle shop.
-- Players choose between immediate military strength, crafting options, and potentially investing in their economy.
+**Traps:** Some traps activate automatically when specific battlefield events occur; others allow a timed player reaction.
 
-### 3. Crafting System
+**Battle Economy:** Gold accumulates passively and can be invested in materials, income upgrades, base improvements, or troops. Economic units such as miners generate additional resources but are vulnerable to enemy attacks.
 
-Crafting is a central part of gameplay.
+**Progression:** Unlocked recipes, collected cards, and permanent upgrades provide long-term progression. Rules for retaining temporary resources and battle progress may differ between Single Player and Multiplayer.
 
-Players combine materials to discover recipes and create:
+## Player Skill
 
-- Individual troops or squads
-- Upgraded or specialized troops
-- Spell cards
-- Trap cards
-- Tactical action cards
+Success depends on resource management, crafting knowledge, deck building, timing, and tactical decision-making.
 
-For example:
-
-**Knight + Fire Essence → Fire Knight**
-
-**Ice Crystal + Magic Rune → Freeze Trap**
-
-Some materials can be obtained from enemies, while others can be purchased with gold.
-
-The exact crafting interface, recipe rules, and troop quantities are still being designed.
-
-### 4. Deck & Tactical Cards
-
-Before battle, players prepare a customizable deck.
-
-- Players begin with a small random hand from their deck.
-- A new random card is drawn approximately every 15–20 seconds.
-- Cards are drawn from the remaining deck.
-- Used cards are consumed for that battle unless a future mechanic explicitly restores them.
-- No mana is required to play cards.
-
-**Card Types**
-
-**Spells:** Manually activated effects such as damage, freezing, healing, or protection.
-
-**Traps:** Cards prepared in advance that react to battlefield conditions. Some activate automatically, while others may allow timed player reactions.
-
-**Action Cards:** Tactical effects that influence troop behavior, attacks, or combat conditions.
-
-### 5. Crafting Cards During Battle
-
-In addition to drawing cards from the prepared deck, players may craft special cards during combat by spending resources.
-
-Crafted cards can provide an immediate tactical option that was not available in the initial hand.
-
-This creates a meaningful choice:
-
-**Spend materials on more soldiers, or craft a powerful card to counter the enemy's strategy?**
-
-The crafting cost must be balanced so that crafted cards complement the deck rather than replace the importance of random draws.
-
-## Player Skill & Strategy
-
-The game combines several types of player skill:
-
-- **Crafting Knowledge:** Understanding recipes and discovering effective combinations.
-- **Resource Management:** Choosing how and when to spend gold and materials.
-- **Deck Building:** Preparing a balanced set of spells, traps, and actions.
-- **Timing:** Activating abilities at critical moments.
-- **Prediction:** Preparing traps and anticipating enemy actions.
-- **Adaptation:** Adjusting army composition and tactics to the current battle.
-
-A player with better decisions should have opportunities to defeat a stronger army.
-
-## Progression & Replayability
-
-The intended long-term progression includes:
-
-- Discovering new crafting recipes.
-- Unlocking new troop types and cards.
-- Experimenting with different decks and strategies.
-- Facing enemies that require different tactical responses.
-- Advancing through increasingly challenging battles.
-
-Permanent upgrades, saved resources, and progression between attempts are not yet finalized.
+Players must choose between immediate military strength, economic investment, and crafting powerful cards that can turn the tide of battle.
 
 ## Why Come Back?
 
-**Discovery:** Unlock new recipes, cards, and troop combinations.
+- Discover new crafting recipes and troop combinations.
+- Unlock cards and experiment with different decks.
+- Improve strategies and master tactical timing.
+- Progress through new challenges and game modes.
 
-**Mastery:** Improve crafting efficiency, card timing, and battle strategy.
+## Target Experience
 
-**Experimentation:** Test different decks and army compositions.
+Accessible, touch-friendly mobile strategy with short, exciting battles, satisfying crafting discoveries, and meaningful real-time decisions.
 
-**Progression:** Unlock new challenges, materials, and abilities.
+**Visual Style:** Colorful, cinematic fantasy with soft painterly shading, glowing magic, and stylized heroic characters.
 
-Potential future features include daily challenges, special battles, and multiplayer competition.
+## Initial Prototype
 
-## Target Audience & Experience
+One battlefield, two bases, basic troop deployment, gold income, one vulnerable economic unit, a small crafting system, timed card draws, and several spell/trap effects.
 
-Players who enjoy accessible strategy games with deeper tactical decisions.
+**Future Scope:** Story campaign, PvP multiplayer, expanded crafting, progression systems, additional units, and more card combinations.
 
-- Mobile-first, portrait orientation.
-- Short, engaging battles.
-- Simple controls suitable for touchscreens.
-- Colorful painterly fantasy art.
-- A combination of satisfying army combat, crafting discoveries, and reactive card gameplay.
+## Game Promise
 
-The exact battle duration and session structure will be determined through prototyping.
-
-## Initial Prototype Scope
-
-The first prototype should test whether crafting and tactical cards make real-time combat more engaging.
-
-**Proposed prototype content:**
-
-- One horizontal battlefield with two bases.
-- Three basic troop types.
-- Two or three enemy types.
-- Gold generation and a simple material shop.
-- A small set of crafting ingredients and recipes.
-- Crafting of troops and one or two tactical cards.
-- A prepared deck with automatic timed draws.
-- A small selection of spells and traps.
-- Basic troop deployment and automatic movement/combat.
-- One victory condition: destroy the enemy base.
-
-## Future Features (Not Required for the First Prototype)
-
-- Expanded story campaign.
-- Multiplayer / PvP.
-- Larger collections and deck customization.
-- Complex crafting recipes and unit evolutions.
-- Skill trees and permanent upgrades.
-- Multiple worlds, events, and daily rewards.
-- Cosmetic items and monetization.
-
-## Unique Selling Proposition
-
-**Craft your army. Draw your cards. Outsmart your enemy in real time.**
-
-Battle Forge combines real-time army battles with live crafting and reactive card strategy, allowing players to build their forces and change their tactics while the battle is happening.
+**Craft your army. Build your economy. Play your cards. Outsmart your enemy.**
