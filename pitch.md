@@ -2,104 +2,92 @@
 
 **Team:** Eden Lagziel, Alan Zirkiev  
 **Platform:** Mobile (Portrait), Unity  
-**Genre:** Hybrid-Casual / Real-Time Strategy / Crafting  
-**References:** Battle Bag: War Zone, Stick War: Legacy, Minecraft, Yu-Gi-Oh!
+**Genre:** Hybrid-Casual / Real-Time Strategy / Crafting & Card Battler  
+**References:** *Battle Bag: War Zone*, *Stick War: Legacy*, *Minecraft*, *Yu-Gi-Oh!*
 
-**Our Twist:** Players craft troops, squads, and tactical cards during real-time battles. Crafting produces playable cards, combining army building with reactive card strategy.
+**Our Twist:** Craft troops and tactical cards during real-time battles. Every crafted result becomes a playable card, allowing players to combine army-building, economic decisions, and reactive card strategy.
 
 ## Core Loop
 
-**Earn:** Gold is generated automatically during battle. Defeated enemies may drop additional crafting materials.
+**Earn:** Gold is generated automatically throughout battle. Defeated enemies may drop crafting materials, while economic units such as miners provide additional income but can be attacked and killed.
 
-**Buy & Upgrade:** Players spend gold on materials, economic improvements, or troop production. Economic units can generate resources but can also be killed by enemies.
+**Buy & Upgrade:** Spend gold to purchase crafting materials, improve income generation, strengthen the base, or invest in military production.
 
-**Craft:** Players combine ingredients on a 3×3 crafting table to discover recipes. The three most recently crafted recipes are available through Quick Craft. Combat continues while crafting.
+**Craft:** Arrange materials on a 3×3 crafting grid to discover recipes. The three most recently crafted recipes become available in Quick Craft for faster production. Combat continues normally while crafting.
 
-**Deploy:** Crafted troops and squads become cards showing their unit quantities. Players choose when to deploy them into the battlefield.
+**Play Cards:** Crafted troops, squads, spells, and traps become playable cards. Troop cards display the number of units they deploy. Players choose when to use them, without additional mana costs.
 
-**Cards:** Players prepare a deck before battle, start with a small hand, and draw a random card approximately every 15–20 seconds. Spells, actions, and traps can affect combat or react to battlefield events. Special cards can also be crafted during battle.
+**Draw & React:** Players also start with cards from a prebuilt deck and draw a random card approximately every 15–20 seconds. Spells and actions are activated manually, while traps can trigger automatically or through timed reactions to battlefield events.
 
-**Fight:** Troops move automatically along a horizontal battlefield between two opposing bases. Players manage resources, deploy reinforcements, and use tactical cards to destroy the enemy base before losing their own.
+**Fight:** Units move and fight automatically along a horizontal route between opposing bases. The player wins by destroying the enemy base before losing their own.
 
 ## Meta
 
-**Unlock:** New crafting recipes, units, and cards become available through progression.
+**Progression:** Unlock new crafting recipes, troop types, and tactical cards by completing stages.
 
-**Progress:** Cleared stages, unlocked recipes, collected cards, and permanent upgrades are saved.
+**Collection:** Discovered recipes, unlocked cards, and permanent upgrades are saved between battles.
 
-**Game Modes:** Single Player is the initial focus. Multiplayer is planned as a possible future expansion, with separate progression and balancing rules.
+**Game Modes:** Single Player is the focus of the course version. Multiplayer is a potential future expansion with separate balancing and progression rules.
+
+**Campaign:** 10 single-player stages with increasing difficulty, varied enemy compositions, and new tactical challenges.
 
 ## Why Come Back?
 
-1. **Discover & Experiment:** Find new crafting recipes, unlock cards, and try different combinations of troops and abilities.
-2. **Master & Progress:** Improve resource management, card timing, and battle strategy to defeat increasingly challenging opponents.
+1. **Discover & Experiment:** Unlock new recipes and cards, create stronger combinations, and experiment with different deck strategies.
+2. **Improve & Progress:** Refine crafting decisions, resource management, and tactical timing to overcome more challenging battles.
 
 ## Who and When
 
-Casual strategy players aged approximately 16–35 who enjoy crafting, deck building, and real-time battles.
+Casual and strategy-oriented mobile players, approximately **16–35 years old**, who enjoy crafting, deck-building, and short tactical battles.
 
-Designed for portrait mobile play, with short sessions during breaks or commutes.
+Designed for portrait, touch-friendly gameplay during breaks, commutes, or short play sessions.
 
-**Target session length:** 1–3 minutes per battle.
+**Target battle duration:** 1–3 minutes. A stage can be retried if the player loses.
 
 ## Goals
 
-- Destroy the enemy base and clear a stage.
-- Discover new crafting recipes.
-- Craft and deploy different troops or squads.
-- Successfully activate spells and traps.
-- Upgrade economic production or base defenses.
-- Unlock new cards and units.
-- Complete all three initial stages.
+- Destroy the enemy base and win a battle.
+- Complete each of the 10 campaign stages.
+- Discover and unlock crafting recipes.
+- Craft troops, squads, spells, and traps.
+- Successfully use tactical cards during combat.
+- Purchase economic or defensive upgrades.
+- Unlock new cards and troop types.
+- Experiment with different deck combinations.
 
 ## Feel
 
-**Crafting:** Ingredients snap into the 3×3 grid with satisfying sounds and light effects. Successful recipes reveal their result with a brief animation.
+**Crafting:** Materials snap into the grid with clear feedback. Successful recipes trigger a short reveal animation and produce a playable card.
 
-**Cards:** Crafted troops appear as cards with visible quantities. Spells and traps have distinct visual effects and clear activation feedback.
+**Cards:** Troop quantities, spell effects, and trap conditions are clearly displayed. Drawing or crafting a card provides satisfying visual feedback.
 
-**Combat:** Troops march toward the enemy, attack automatically, and respond to tactical events with readable animations and effects.
+**Combat:** Units march and fight in real time, with readable attacks, impacts, and defensive reactions.
 
-**Progression:** New recipes and cards are clearly highlighted when unlocked, creating anticipation for the next battle.
+**Progression:** New discoveries, unlocked recipes, and stage victories are celebrated through concise visual and audio effects.
 
-**Visual Style:** Stylized fantasy characters, colorful environments, and reusable UI elements. Development prioritizes gameplay systems over complex graphics.
+**Art Direction:** Colorful painterly fantasy with reusable visual assets, keeping development focused on gameplay and code rather than complex art production.
 
 ## Scope Check
 
-**Required:**
-- Hybrid-casual gameplay with simple touch controls.
+**Course Requirements:**
+- Hybrid-casual game with simple controls and strategic depth.
 - Portrait mobile orientation.
-- Target battle duration of 1–3 minutes.
-- Small, achievable scope for two developers.
+- Target session length of 1–3 minutes.
+- Manageable scope for a team of two.
 
-**Initial Content Targets:**
-- 3 single-player stages.
-- 1 horizontal battlefield layout.
-- 3 player troop types.
-- 3 enemy types.
-- 1 boss encounter.
-- 4 crafting materials.
-- 6 crafting recipes.
+**Content:**
+- **10 single-player stages** using reusable level configurations.
+- 1 main horizontal battlefield layout.
+- 3 basic player troop types.
+- 3 enemy types and 1 boss type.
+- 4 crafting material types.
+- 6 initial crafting recipes.
 - 4 tactical card effects.
-- Basic gold income and one economic upgrade.
-- Simple enemy deployment logic.
+- Passive gold income and basic economic upgrades.
+- Simple rule-based enemy AI.
 
-**Initial Screens:**
-- Main Menu
-- Level Selection
-- Battle & Crafting
-- Collection / Deck
-- Results
+**Screens:** Main Menu · Level Selection · Battle & Crafting · Collection / Deck · Results · Settings.
 
-**Out of Scope for the Course MVP:**
-- Multiplayer networking.
-- Large skill trees.
-- Multiple worlds.
-- Complex enemy AI.
-- Paid purchases and advertisements.
-- Extensive card rarity and merging systems.
-- Advanced progression and economy systems.
+**Out of Scope:** Multiplayer networking, paid purchases, advertisements, extensive skill trees, large open worlds, complex enemy AI, and advanced card merging or rarity systems.
 
-## Prototype Goal
-
-Validate that players enjoy crafting troops and tactical cards while managing a real-time battle, and that meaningful decisions remain possible within a short mobile session.
+**Implementation Approach:** Reusable Unity components and data-driven level configurations allow new stages to vary enemy combinations, deployment timing, available resources, and difficulty without requiring new gameplay systems for every stage.
