@@ -2,92 +2,73 @@
 
 **Team:** Eden Lagziel, Alan Zirkiev  
 **Platform:** Mobile (Portrait), Unity  
-**Genre:** Hybrid-Casual / Real-Time Strategy / Crafting & Card Battler  
-**References:** *Battle Bag: War Zone*, *Stick War: Legacy*, *Minecraft*, *Yu-Gi-Oh!*
+**Genre:** Hybrid-Casual / Real-Time Strategy / Crafting & Card Battler
 
-**Our Twist:** Craft troops and tactical cards during real-time battles. Every crafted result becomes a playable card, allowing players to combine army-building, economic decisions, and reactive card strategy.
+**Our Twist:** Players craft troops and tactical cards during real-time battles, combining recipe discovery, army production, and event-driven card strategy.
 
 ## Core Loop
 
-**Earn:** Gold is generated automatically throughout battle. Defeated enemies may drop crafting materials, while economic units such as miners provide additional income but can be attacked and killed.
+**Earn:** Gold accumulates over time. Enemies may drop materials, and vulnerable economic units can generate additional resources.
 
-**Buy & Upgrade:** Spend gold to purchase crafting materials, improve income generation, strengthen the base, or invest in military production.
+**Buy & Upgrade:** Spend gold on crafting materials, income upgrades, base defenses, and military development.
 
-**Craft:** Arrange materials on a 3×3 crafting grid to discover recipes. The three most recently crafted recipes become available in Quick Craft for faster production. Combat continues normally while crafting.
+**Craft:** Experiment with materials on a 3×3 grid to discover recipes. Successful crafting produces playable cards, and the three most recently used recipes appear in Quick Craft. Combat continues during crafting.
 
-**Play Cards:** Crafted troops, squads, spells, and traps become playable cards. Troop cards display the number of units they deploy. Players choose when to use them, without additional mana costs.
+**Basic Units:** Players have a small set of permanently available unit buttons. Each unit has a cooldown and may require gold to deploy.
 
-**Draw & React:** Players also start with cards from a prebuilt deck and draw a random card approximately every 15–20 seconds. Spells and actions are activated manually, while traps can trigger automatically or through timed reactions to battlefield events.
+**Crafted Troops:** Crafted units and squads become cards displaying their quantities. These cards occupy a dedicated limited-capacity reserve and can be deployed at the player's chosen moment.
 
-**Fight:** Units move and fight automatically along a horizontal route between opposing bases. The player wins by destroying the enemy base before losing their own.
+**Tactical Cards:** Players prepare a deck of spells, traps, and actions. They draw a random card every 15–20 seconds. Crafted tactical cards and drawn cards share a separate tactical hand. Spells are activated manually, while traps can respond automatically or through timed reactions.
+
+**Fight:** Troops automatically advance along a horizontal battlefield. Players win by destroying the opposing base while defending their own.
 
 ## Meta
 
-**Progression:** Unlock new crafting recipes, troop types, and tactical cards by completing stages.
+**Progression:** Cleared stages, discovered crafting recipes, unlocked cards, and permanent upgrades are saved.
 
-**Collection:** Discovered recipes, unlocked cards, and permanent upgrades are saved between battles.
+**Rewards:** Gems earned through victories can be used for permanent upgrades and unlocks.
 
-**Game Modes:** Single Player is the focus of the course version. Multiplayer is a potential future expansion with separate balancing and progression rules.
+**Campaign:** 10 single-player stages with increasing difficulty.
 
-**Campaign:** 10 single-player stages with increasing difficulty, varied enemy compositions, and new tactical challenges.
+**Future Modes:** Multiplayer may introduce separate progression and balancing rules.
 
 ## Why Come Back?
 
-1. **Discover & Experiment:** Unlock new recipes and cards, create stronger combinations, and experiment with different deck strategies.
-2. **Improve & Progress:** Refine crafting decisions, resource management, and tactical timing to overcome more challenging battles.
+1. Discover recipes, unlock units and expand tactical deck options.
+2. Improve strategy, resource management and combat timing to overcome increasingly difficult stages.
 
 ## Who and When
 
-Casual and strategy-oriented mobile players, approximately **16–35 years old**, who enjoy crafting, deck-building, and short tactical battles.
+Mobile players aged approximately 16–35 who enjoy accessible strategy, crafting, and tactical card interactions.
 
-Designed for portrait, touch-friendly gameplay during breaks, commutes, or short play sessions.
+Designed for portrait gameplay and short sessions.
 
-**Target battle duration:** 1–3 minutes. A stage can be retried if the player loses.
+**Target battle duration: 3–5 minutes**, pending verification against the course's stated 1–3 minute session requirement.
 
 ## Goals
 
-- Destroy the enemy base and win a battle.
-- Complete each of the 10 campaign stages.
-- Discover and unlock crafting recipes.
-- Craft troops, squads, spells, and traps.
-- Successfully use tactical cards during combat.
-- Purchase economic or defensive upgrades.
-- Unlock new cards and troop types.
-- Experiment with different deck combinations.
+- Win battles by destroying the enemy base.
+- Clear all 10 campaign stages.
+- Discover and craft new recipes.
+- Deploy crafted units and squads.
+- Activate spells and traps successfully.
+- Improve economic production and base defenses.
+- Earn Gems and unlock permanent progression.
 
 ## Feel
 
-**Crafting:** Materials snap into the grid with clear feedback. Successful recipes trigger a short reveal animation and produce a playable card.
+Crafted items transform into playable cards with satisfying effects. Units move and fight automatically, while spells, traps, and resource decisions create impactful tactical moments.
 
-**Cards:** Troop quantities, spell effects, and trap conditions are clearly displayed. Drawing or crafting a card provides satisfying visual feedback.
-
-**Combat:** Units march and fight in real time, with readable attacks, impacts, and defensive reactions.
-
-**Progression:** New discoveries, unlocked recipes, and stage victories are celebrated through concise visual and audio effects.
-
-**Art Direction:** Colorful painterly fantasy with reusable visual assets, keeping development focused on gameplay and code rather than complex art production.
+The game uses colorful painterly fantasy art, reusable UI assets, and responsive touch controls.
 
 ## Scope Check
 
-**Course Requirements:**
-- Hybrid-casual game with simple controls and strategic depth.
-- Portrait mobile orientation.
-- Target session length of 1–3 minutes.
-- Manageable scope for a team of two.
+**Core Systems:** Real-time battle, basic-unit deployment, gold economy, 3×3 crafting, Quick Craft, crafted troop reserve, tactical card hand, simple enemy AI.
 
-**Content:**
-- **10 single-player stages** using reusable level configurations.
-- 1 main horizontal battlefield layout.
-- 3 basic player troop types.
-- 3 enemy types and 1 boss type.
-- 4 crafting material types.
-- 6 initial crafting recipes.
-- 4 tactical card effects.
-- Passive gold income and basic economic upgrades.
-- Simple rule-based enemy AI.
+**Content Targets:** 10 stages, 3 player troop types, 3 enemy types, 1 boss, 4 crafting materials, 6 recipes, and 4 tactical card effects.
 
-**Screens:** Main Menu · Level Selection · Battle & Crafting · Collection / Deck · Results · Settings.
+**Initial Game Mode:** Single Player.
 
-**Out of Scope:** Multiplayer networking, paid purchases, advertisements, extensive skill trees, large open worlds, complex enemy AI, and advanced card merging or rarity systems.
+**Out of Scope for MVP:** Multiplayer, tutorial, advanced crafting hints, paid purchases, advertisements, large skill trees, and complex enemy AI.
 
-**Implementation Approach:** Reusable Unity components and data-driven level configurations allow new stages to vary enemy combinations, deployment timing, available resources, and difficulty without requiring new gameplay systems for every stage.
+**Development Priority:** Gameplay systems and code over complex visual production.
