@@ -1,93 +1,56 @@
-# Battle Forge — Game Concept One-Pager
-**Team:** Eden Lagziel, Alan Zirkiev  
-**Platform:** Mobile (Portrait), Unity  
-**Genre:** Hybrid-Casual / Real-Time Strategy / Crafting & Card Battler  
-**References:** Battle Bag: War Zone, Stick War: Legacy, Minecraft, Yu-Gi-Oh!
+# Pitch: Battle Forge
 
-**Our Twist:** Players enter battle with four selected cards, choose two reusable basic units, and craft additional troops, spells, and traps in real time. Victory depends on resource management, crafting, and tactical card timing.
+**Team:** Eden Lagziel, Alan Zirkiev
+**Platform:** Android, portrait, one thumb · Unity 6
+**References:** *Stick War: Legacy* (one lane, two bases), *Minecraft* (3×3 crafting), *Yu-Gi-Oh!* (Monster and Spell cards), *Battle Bag: War Zone*
+**Our twist:** your army comes only from crafting. In the middle of a real-time battle you buy materials, lay them on a 3×3 table and turn them into cards.
 
-## Core Loop
-
-**Prepare:** Before battle, players select four cards from their collection. Cards may be Monsters, Spells, or Traps in any combination.
-
-**Choose Basic Units:** At the start of each battle, a short selection phase presents three available unit cards drawn from the player's unlocked basic-unit collection. The player chooses two. These become reusable unit buttons with cooldowns during battle.
-
-**Earn:** Gold is generated automatically over time and awarded for defeating enemy troops.
-
-**Buy:** Players spend gold in the Material Shop to purchase crafting ingredients.
-
-**Craft:** Players combine materials on a 3×3 Crafting Table to create additional Monster, Spell, or Trap cards. Crafting takes place while combat continues.
-
-**Switch:** Three tabs control the crafting area: **1 — Crafting Table, 2 — Recipes, 3 — Material Shop.** The Recipes tab shows discovered recipes and the materials needed to craft them.
-
-**Play Cards:** Four selected cards are available at the beginning of battle. Each card is consumed after use and disappears from its slot. Additional cards can be crafted during battle, subject to available materials and card capacity.
-
-**Fight:** Units advance and fight automatically along a horizontal battlefield. The player deploys troops, activates tactical cards, and attempts to destroy the enemy base while defending their own.
+## Core loop
+Each battle starts with 4 empty card slots and a few materials, enough for one or two crafts.
+- **Gold** grows over time and with every kill. Tap **wood**, **stone** or **metal** to buy one, or tap **Upg income** to earn gold faster.
+- **Craft:** lay materials on the 3×3 table in a recipe's shape. The shape can sit anywhere on the table and can be mirrored left-right, but not turned or flipped upside down. When it matches, the **Spawn** button shows the card's picture; tap it and the card goes into a free slot.
+- **Recent:** the last 3 recipes you crafted can be repeated with one tap if you have the materials.
+- **Recipe book:** a button opens your recipes in the middle of the battle; the fight goes on.
+- **Cards:** a **Monster** card sends a squad of one soldier type (for example Archers ×3); a **Spell** card hits the whole field, no aiming. A played card disappears and frees its slot.
+- **Fight:** troops walk and fight on their own along one lane. The enemy base sends 4 waves, and the 5th brings a **boss**, a soldier with much more HP. **Destroy the enemy base to win**, even before the boss if you rush; lose if your base falls.
 
 ## Meta
+- **Earn:** **cash** after every battle, based on kills and on clearing the stage, so a loss still pays a little. Each new stage pays more; cleared stages can be replayed.
+- **Spend:** buy locked recipes in the **Recipe book** (menu tab).
+- **Unlock:** every recipe you own can be crafted in every battle; nothing to pick before a fight. The game starts with 3 recipes open. Story stages open one by one.
 
-**Collection:** Players collect Monster, Spell, and Trap cards, unlock basic units, and discover crafting recipes.
+## Why come back?
+1. **Recipe collection:** the next recipe is almost affordable, and every new one changes how you fight.
+2. **Daily reward:** free cash once a day.
 
-**Deck Preparation:** Before each battle, players choose four cards to bring from their collection. The selection is not restricted by card type.
-
-**Progression:** Cleared stages, unlocked cards, discovered recipes, and permanent upgrades are saved.
-
-**Rewards:** Battle rewards support unlocking new cards, recipes, and permanent improvements. A separate meta currency can be used for long-term progression.
-
-**Campaign:** 10 single-player stages with increasing difficulty. Multiplayer is a possible future expansion.
-
-## Why Come Back?
-
-1. **Collect & Discover:** Unlock new cards and recipes, experiment with crafting combinations, and create different battle loadouts.
-2. **Improve & Progress:** Master resource management, basic-unit combinations, and tactical timing to defeat increasingly challenging opponents.
-
-## Who and When
-
-Casual strategy and card-game players who enjoy short battles, crafting, and tactical decisions.
-
-Designed for portrait mobile play with touch-friendly controls.
-
-**Target battle duration:** 3–5 minutes.
+## Who and when
+Casual players aged 16–35 who like simple strategy and card games. One battle takes 2–3 minutes, so it fits a bus ride or a queue; several stages in a row make a longer session at home. All controls sit in the lower part of the screen, within reach of one thumb; the battlefield on top is only watched.
 
 ## Goals
-
-- Destroy the enemy base to win a battle.
-- Complete all 10 campaign stages.
-- Unlock and collect Monster, Spell, and Trap cards.
-- Choose effective four-card loadouts.
-- Discover and use crafting recipes.
-- Earn gold, purchase materials, and create reinforcements.
-- Unlock new basic units and permanent improvements.
+- Stage cleared (enemy base destroyed)
+- Boss beaten
+- All 6 Story stages cleared
+- New recipe bought
+- Every owned recipe crafted at least once
+- All 10 recipes collected
 
 ## Feel
+- **Crafting:** materials snap into the table with a click; a matching shape lights up Spawn with the card's picture, and the new card flies into its slot.
+- **Combat:** troops march out with a short horn, hit sounds and damage numbers, coins pop out of every kill.
+- **Spells:** a flash across the whole field and a short screen shake.
+- **Boss:** a warning banner, the music changes, and the screen shakes on every hit.
+- **Results:** cash counts up into the counter. Music in the menu and in battle.
 
-**Battle:** A readable horizontal battlefield shows two opposing bases and automatically fighting units.
+## Scope check
+- [x] Hybrid-casual: simple core + a meta layer
+- [x] Portrait, one thumb
+- [x] 1–3 minute sessions (one battle)
+- [x] Small: about 3 levels (more for a team of 2–3)
 
-**Basic Units:** Two persistent unit buttons clearly communicate availability and cooldowns.
+**Content:** 6 Story stages on one battlefield · 4 soldier types (swordsman, archer, knight, giant) · 10 recipes: 5 Monster, 5 Spell · 3 materials (wood, stone, metal) · 3 enemy types + 1 boss.
 
-**Crafting:** A compact 3×3 crafting interface lets players combine materials and immediately see the resulting card.
+**Screens:** Menu with two tabs (Battle: current stage and Play; Recipes: recipe book and buying) · Battle · Results. Stage 1 doubles as a tutorial with 3–4 arrow hints.
 
-**Cards:** Four clear card slots display available cards. Cards disappear when played, providing immediate feedback.
+**Team of 2:** stages, recipes, cards and enemy waves are data, so adding more is cheap. On top of the basic game (lane battle, cards, cash and unlocks) we add **real-time crafting** as our extra system: the 3×3 table with shape matching (any position, left-right mirror), the in-battle recipe book, materials and recent recipes.
 
-**Interface:** Three simple switching tabs provide access to the Crafting Table, Recipe Book, and Material Shop without leaving the battle.
-
-**Visual Style:** Stylized fantasy with reusable sprites, intuitive icons, and lightweight effects. Gameplay and code take priority over complex artwork.
-
-## Scope Check
-
-**Core MVP:**
-- 10 configurable single-player stages.
-- One reusable horizontal battlefield with two bases.
-- Pre-battle selection of four collectible cards.
-- Selection of two basic units from three offered candidates.
-- Reusable basic-unit buttons with cooldowns.
-- Single-use Monster, Spell, and Trap cards.
-- Real-time 3×3 Crafting Table.
-- Recipe Book and Material Shop tabs.
-- Gold income from time and enemy kills.
-- Simple rule-based enemy deployment and combat.
-- Basic card collection, progression, and save system.
-
-**Out of Scope:** Multiplayer networking, complex enemy AI, large skill trees, advanced card merging, monetization, and extensive visual effects.
-
-**Development Approach:** Reusable gameplay components, data-driven card and recipe definitions, and configurable enemy patterns support multiple stages without requiring separate systems for each level.
+**Out of scope:** multiplayer and Survival mode, a real-money shop (ideas for after the course), ads, gems or a second meta currency, picking cards before battle, card upgrades, daily quests, complex enemy AI, card merging.
