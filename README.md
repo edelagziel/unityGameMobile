@@ -4,7 +4,7 @@
 **Course:** Mobile Game Development, Shenkar
 
 ## The game in one sentence
-Buy materials in the middle of a real-time battle, craft them on a 3×3 table into troop, spell and trap cards, and push your army along one lane to destroy the enemy base.
+Buy materials in the middle of a real-time battle, craft them on a 3×3 table into troop, spell and trap cards, and push your army along one lane to destroy the enemy base; come back tomorrow for the daily reward and the next recipe to unlock.
 
 ## How to open and build
 1. Open the project in Unity 6 LTS (the exact version is on Moodle).
