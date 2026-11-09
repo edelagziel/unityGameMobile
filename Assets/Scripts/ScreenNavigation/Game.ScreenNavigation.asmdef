@@ -1,0 +1,9 @@
+{
+  "name": "Game.ScreenNavigation",
+  "rootNamespace": "Game.ScreenNavigation",
+  "references": [
+    "VContainer",
+    "UnityEngine.UI"
+  ],
+  "autoReferenced": true
+}
