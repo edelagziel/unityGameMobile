@@ -1,66 +1,79 @@
-# Pitch: Battle Forge
+Pitch: Battle Forge
 
-**Team:** Eden Lagziel, Alan Zirkiev  
-**Platform:** Android, portrait, one thumb · Unity 6  
-**References:** *Stick War: Legacy* (one lane, two bases), *Minecraft* (3×3 crafting), *Yu-Gi-Oh!* (Monster, Spell and Trap cards), *Battle Bag: War Zone*  
-**Our twist:** your army comes only from crafting. In the middle of a real-time battle you buy and collect materials, lay them on a 3×3 table and turn them into cards. A recipe depends on both the materials and their shape.
+Team: Eden Lagziel, Alan Zirkiev
+Platform: Android, portrait, one thumb · Unity 6
+References: Stick War: Legacy (one lane, two bases), Minecraft (3×3 crafting), Yu-Gi-Oh! (Monster, Spell and Trap cards), Battle Bag: War Zone
 
-## Core loop
+Our twist: Build a basic army instantly, then craft stronger troops and tactical cards during real-time battles. Buy and collect materials, arrange them on a 3×3 table and turn them into playable cards. Recipes depend on both materials and their shape.
 
-Each battle starts with 4 empty card slots and a few materials, enough for one or two crafts.
+Core loop
 
-- **Gold** grows over time and with every kill. Tap **Upg income** to earn gold faster.
-- **Materials:** crafting uses different material types, each with its own purpose. Common materials can be purchased with Gold, while certain rare materials can only be obtained as drops from defeated enemies and are not available in the shop. The exact number of materials is still to be decided. Each material has a button showing its quantity and price: **tap** buys one, **hold and drag** places one on the table. The button turns grey when none are available; the price turns red when you can't afford it.
-- **Craft:** lay materials on the 3×3 table in a recipe's shape. The shape can sit anywhere on the table and can be mirrored left-right, but not turned or flipped upside down. Tap a placed material to take it back. When the table matches a recipe, the **Spawn** button shows the card's picture; tap it and the card goes into a free slot.
-- **Recent:** the last 3 recipes you crafted. One tap fills the table with their materials; a recipe you don't have the materials for is greyed out.
-- **Recipe book:** a button opens your recipes in a see-through window over the table; the fight goes on behind it.
-- **Cards:** one tap, no aiming. A **Monster** card sends a squad of one soldier type (for example Archers ×3). A **Spell** creates an immediate battlefield effect. A **Trap** is prepared in advance and activates when a specific battlefield event occurs, such as an enemy attack, a unit's death, or an enemy approaching the base. Different traps can react to different events. A played card is consumed and frees its slot.
-- **Fight:** troops walk and fight on their own along one lane. The enemy base sends 4 waves, and the 5th brings a **boss**, a soldier with much more HP. **Destroy the enemy base to win**, even before the boss if you rush; lose if your base falls.
+Each battle starts with 4 empty card slots, a few materials (enough for one or two crafts), and 2 reusable Basic Unit buttons.
 
-## Meta
+- Gold: grows over time and with every kill. Spend it on materials, Basic Units or Upg income to increase gold generation.
+- Basic Units: two simple soldier types can be summoned directly with Gold, without crafting. They fight like regular troops, but each additional summon of the same type increases its next price. Prices reset at the beginning of each battle.
+- Materials: common materials can be purchased with Gold, while rare materials may drop from defeated enemies and are unavailable in the shop. The exact number of material types is still to be decided. Material buttons display quantities and prices: tap to buy, hold and drag to place on the table.
+- Craft: arrange materials on the 3×3 table to match a recipe. The shape may appear anywhere and can be mirrored left-right, but not rotated or flipped vertically. Tap a placed material to return it. When a recipe matches, Spawn shows the resulting card; tap it to place the card in a free slot.
+- Recent: the last 3 crafted recipes can fill the table automatically with one tap, provided the necessary materials are available.
+- Recipe book: unlocked recipes appear in a transparent window over the crafting area. Combat continues while it is open.
+- Cards: one tap, no aiming. Monster cards deploy troops or squads; Spell cards activate immediate battlefield effects; Trap cards are prepared and activate when specific battlefield events occur. Played cards are consumed and free their slots.
+- Fight: soldiers advance and fight automatically along one lane. The enemy sends 4 waves, followed by a stronger boss in the fifth. Destroy the enemy base to win, even before the boss appears. Lose if your base falls.
 
-- **Earn:** **cash** after every battle, based on kills and on clearing the stage, so a loss still pays a little. Each new stage pays more; cleared stages can be replayed.
-- **Spend:** buy locked recipes in the **Recipe book** (menu tab).
-- **Unlock:** every recipe you own can be crafted in every battle; nothing to pick before a fight. The game starts with 3 recipes open: one Monster, one Spell, one Trap. Story stages open one by one.
+Meta
 
-## Why come back?
+- Earn: receive Cash after every battle, based on kills and stage completion. Losses still award a smaller amount. Completed stages can be replayed.
+- Spend: use Cash to unlock crafting recipes and upgrade soldier levels.
+- Unit Levels: each soldier type has its own permanent level. Upgrades provide small increases to HP and attack damage, with rising upgrade costs and limited levels for easier balancing.
+- Chests: earn reward chests by completing stages or defeating bosses. Optional ad chests can be opened by watching rewarded ads. Chests provide Cash and progression rewards, with cosmetic rewards planned for future updates.
+- Unlock: the game begins with 3 crafting recipes: one Monster, one Spell and one Trap. Purchased recipes and unit upgrades remain available across battles. Story stages unlock sequentially.
 
-1. **Recipe collection:** the next recipe is almost affordable, and every new one changes how you fight.
-2. **Daily reward:** free cash once a day.
+Why come back?
 
-## Who and when
+1. Recipe collection: earn enough Cash for the next recipe, unlocking new troop combinations and tactical options.
+2. Unit progression and rewards: strengthen favorite soldier types, earn chests and overcome harder stages.
 
-Casual players aged 16–35 who like simple strategy and card games. One battle takes 2–3 minutes, so it fits a bus ride or a queue; several stages in a row make a longer session at home. All controls sit in the lower part of the screen, within reach of one thumb; the battlefield on top is only watched.
+Who and when
 
-## Goals
+Casual players aged 16–35 who enjoy simple strategy, crafting and card battles. A battle targets 2–3 minutes, fitting short breaks or queues. Several stages can be played consecutively at home. Controls are designed for one-thumb portrait play, with the battlefield above and interactions below.
+
+Goals
 
 - Stage cleared (enemy base destroyed)
 - Boss beaten
 - All 6 Story stages cleared
 - New recipe bought
+- Soldier level upgraded
+- Reward chest opened
 - Every owned recipe crafted at least once
 - All 15 recipes collected
 
-## Feel
+Feel
 
-- **Crafting:** materials snap into the table with a click; a matching recipe lights up Spawn with the card's picture, and the new card flies into its slot.
-- **Combat:** troops march out with a short horn, hit sounds and damage numbers, coins pop out of every kill.
-- **Spells:** a flash across the whole field and a short screen shake.
-- **Traps:** a clear visual indicator shows when a trap is armed, followed by a distinct effect when its battlefield event triggers it.
-- **Boss:** a warning banner, the music changes, and the screen shakes on every hit.
-- **Results:** cash counts up into the counter. Music in the menu and in battle.
+- Crafting: materials snap into the grid with a click; a matching recipe lights up Spawn with its card picture, and the card flies into a free slot.
+- Basic Units: tapping a soldier button summons a unit immediately; its next Gold cost visibly increases.
+- Combat: troops march with a short horn, attacks produce hit sounds and damage numbers, and kills reward Gold.
+- Spells: clear magical effects, flashes and short screen shakes.
+- Traps: an armed indicator appears, followed by a distinct effect when the relevant battlefield event occurs.
+- Boss: a warning banner, changing music and heavy impact effects.
+- Results: earned Cash counts up into the player's balance. Chest openings and soldier upgrades provide satisfying reward animations.
 
-## Scope check
+Scope check
 
-- [x] Hybrid-casual: simple core + a meta layer
-- [x] Portrait, one thumb
-- [x] 1–3 minute sessions (one battle)
-- [x] Small: reusable systems designed for a team of 2
+- [x] Hybrid-casual: simple core + a meta progression layer
+- [x] Portrait, one-thumb controls
+- [x] 1–3 minute target sessions
+- [x] Reusable, data-driven systems for a team of 2
 
-**Content:** 6 Story stages on one battlefield · 5 soldier types · 15 recipes: 5 Monster, 5 Spell, 5 Trap · common and rare crafting materials (exact number TBD) · 3 enemy types + 1 boss.
+Planned Content: 6 Story stages on one battlefield · 5 soldier types · 15 recipes (5 Monster, 5 Spell, 5 Trap) · common and rare materials (exact count TBD) · 3 enemy types + 1 boss.
 
-**Screens:** Menu with two tabs (Battle: current stage and Play; Recipes: recipe book and buying) · Battle · Results. Stage 1 doubles as a tutorial with 3–4 arrow hints.
+First Playable: 3 stages · 4 crafting materials · 6–9 recipes (2–3 of each card type) · simple Basic Units · a small, capped Unit Leveling system.
 
-**Team of 2:** stages, materials, recipes, cards and enemy waves are data, so adding more content is relatively cheap. Spells and traps can share effects such as damage, freeze and slow, while traps use event-based triggers. On top of the basic game (lane battle, cards, cash and unlocks) we add **real-time crafting** as our extra system: the 3×3 table with material and shape matching (any position, left-right mirror), material buttons (tap to buy, drag to place), the in-battle recipe book and recent recipes that fill the table in one tap.
+Screens: Menu (Battle and Recipes/Upgrades tabs) · Battle · Results. Stage 1 includes a few short tutorial hints.
 
-**Out of scope:** multiplayer and Survival mode, a real-money shop (ideas for after the course), ads, gems or a second meta currency, picking cards before battle, card upgrades, daily quests, complex enemy AI, card merging.
+Team of 2: stages, recipes, cards, unit statistics and enemy waves are data-driven. Spells and traps share effects such as damage, freeze and slow, while traps use event-based triggers. The main extra system is real-time 3×3 crafting, including material and shape matching at any position with horizontal mirroring.
+
+Development priority: first validate one-thumb crafting through a Greybox prototype. Add more content only after the core loop works. Recent Recipes, the in-battle Recipe Book and reward chests can be implemented later.
+
+Advertising: rewarded and interstitial ads will be integrated through the publisher SDK later in the course. Optional rewarded ads may open special chests or double earned Cash on the Results screen.
+
+Out of scope: multiplayer, Survival Mode, a real-money shop, complex enemy AI, card merging, a second meta currency, choosing cards before battle, advanced skill trees and cosmetic skins.
