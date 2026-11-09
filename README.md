@@ -4,10 +4,10 @@
 **Course:** Mobile Game Development, Shenkar
 
 ## The game in one sentence
-Buy materials in the middle of a real-time battle, craft them on a 3×3 table into troop, spell and trap cards, and push your army along one lane to destroy the enemy base; come back tomorrow for the daily reward and the next recipe to unlock.
+Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare Soul makes them stronger) and destroy the enemy base; come back tomorrow for daily rewards, quests and new cards to unlock.
 
 ## How to open and build
-1. Open the project in Unity 6 LTS (the exact version is on Moodle).
+1. Open the project in Unity 6000.6.7f1 (the version approved by the course).
 2. File → Build Profiles → Android → Switch Platform.
 3. Build and run on an Android phone.
 
