@@ -21,6 +21,7 @@ namespace Game.ScreenNavigation
             builder.RegisterInstance(screenRegistry);
             builder.Register<ScreenNavigationHistory>(Lifetime.Scoped);
             builder.Register<IScreenNavigator, ScreenNavigator>(Lifetime.Scoped);
+            builder.Register<IScreenFlow, ScreenFlow>(Lifetime.Singleton);
             builder.Register<SettingsModel>(Lifetime.Scoped);
             builder.RegisterEntryPoint<MainMenuController>(Lifetime.Scoped);
             builder.RegisterEntryPoint<SettingsController>(Lifetime.Scoped);
