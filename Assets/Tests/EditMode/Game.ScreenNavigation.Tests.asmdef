@@ -1,0 +1,13 @@
+{
+  "name": "Game.ScreenNavigation.Tests",
+  "rootNamespace": "Game.ScreenNavigation.Tests",
+  "references": [
+    "Game.ScreenNavigation"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
