@@ -8,6 +8,7 @@ namespace Game.ScreenNavigation
         private readonly SettingsView view;
         private readonly IScreenNavigator navigator;
         private readonly SettingsModel model;
+        private bool started;
 
         public SettingsController(SettingsView view, IScreenNavigator navigator, SettingsModel model)
         {
@@ -18,6 +19,8 @@ namespace Game.ScreenNavigation
 
         public void Start()
         {
+            if (started) return;
+            started = true;
             view.ShowSoundEnabled(model.SoundEnabled);
             view.BackPressed += OnBackPressed;
             view.SoundChanged += OnSoundChanged;
@@ -25,6 +28,8 @@ namespace Game.ScreenNavigation
 
         public void Dispose()
         {
+            if (!started) return;
+            started = false;
             view.BackPressed -= OnBackPressed;
             view.SoundChanged -= OnSoundChanged;
         }

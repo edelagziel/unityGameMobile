@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.ScreenNavigation
 {
-    public sealed class MainMenuView : ScreenView
+    public sealed class MainMenuView : TabbedScreenView
     {
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button playButton;

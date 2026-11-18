@@ -29,6 +29,23 @@ namespace Game.ScreenNavigation.Tests
         }
 
         [Test]
+        public void RepeatedLevelVisitsReturnToHomeWithoutDuplicates()
+        {
+            var history = new ScreenNavigationHistory();
+            history.ResetTo(typeof(MainMenuView));
+
+            for (var visit = 0; visit < 3; visit++)
+            {
+                Assert.IsTrue(history.Push(typeof(LevelView)));
+                Assert.IsFalse(history.Push(typeof(LevelView)));
+                Assert.AreEqual(2, history.Count);
+                Assert.IsTrue(history.Pop());
+                Assert.AreEqual(typeof(MainMenuView), history.Current);
+                Assert.AreEqual(1, history.Count);
+            }
+        }
+
+        [Test]
         public void DuplicatePushDoesNotChangeHistory()
         {
             var history = new ScreenNavigationHistory();
