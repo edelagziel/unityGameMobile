@@ -2,6 +2,30 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-19 — Services behind interfaces, started by a Bootstrap scope (VContainer)
+
+Options: Static `Services` class (as in Lesson 3) / VContainer root scope with constructor injection / Singleton MonoBehaviours
+
+Chose: Every service is an interface in its own Services assembly (`ISaveService`, `IWalletService`) with one implementation registered in `BootstrapLifetimeScope`. Bootstrap initializes the services in registration order, then loads Home. Scene scopes take the Bootstrap scope as their parent, and controllers get the services in their constructors.
+
+Why: Our screens already use VContainer, so services arrive the same way as everything else: one way to get dependencies and no global state. A controller's constructor shows exactly what it needs, and tests can pass a fake (`WalletServiceTests` uses an in-memory save). Save goes through `ISaveService`, so moving from PlayerPrefs to a cloud save later is one new class and one line in Bootstrap, with no change to any screen. The generic `Save<T>` / `Load<T>` stores any serializable data (Cash, settings, progress) with the same methods.
+
+AI: Claude proposed the VContainer root scope and the generic save API instead of the lesson's static `Services` class. We checked the VContainer APIs against its source, and the EditMode tests and Play mode confirmed it works.
+
+Who: Alan (implemented); Eden (screen architecture with VContainer)
+
+2026-11-19 — One game scene: Level becomes a screen in Home
+
+Options: Separate Home and Level scenes with a scene flow / Level as a screen inside Home
+
+Chose: Keep one game scene. `LevelView` is a screen in Home: Battle pushes it and Back pops it, through the same screen navigator as the menu tabs. The Level scene and `ScreenFlow` were removed; the Scene List is Bootstrap, Home.
+
+Why: The navigator already handles every other screen, so the battle uses the same system instead of a second one. A battle will be reset by its own logic rather than by reloading a scene, and nothing has to be passed between scenes.
+
+AI: Claude first built Home and Level as two scenes, following the lesson slides. Eden pointed out that `ScreenFlow` needed a new method for every new scene and that a reset should come from logic; we merged Eden's per-screen MVC refactor and moved Level into Home.
+
+Who: Eden (proposed); Alan (agreed, wired the scene)
+
 2026-11-09 — Add Basic Units to reduce crafting pressure
 
 Options: Crafting-only army / Reusable Basic Units / Pause combat during crafting

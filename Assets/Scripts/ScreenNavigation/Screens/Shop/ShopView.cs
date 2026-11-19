@@ -1,4 +1,4 @@
 namespace Game.ScreenNavigation
 {
-    public sealed class ShopView : ScreenView { }
+    public sealed class ShopView : TabbedScreenView { }
 }

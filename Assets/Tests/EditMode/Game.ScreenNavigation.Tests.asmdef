@@ -2,7 +2,9 @@
   "name": "Game.ScreenNavigation.Tests",
   "rootNamespace": "Game.ScreenNavigation.Tests",
   "references": [
-    "Game.ScreenNavigation"
+    "Game.ScreenNavigation",
+    "UnityEngine.UI",
+    "VContainer"
   ],
   "includePlatforms": [
     "Editor"
