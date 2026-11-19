@@ -31,3 +31,6 @@ crashlytics-build.properties
 # Secrets: never commit signing keys
 *.keystore
 *.jks
+
+# Unity 6 temporary folder
+/.utmp/
