@@ -10,10 +10,14 @@ namespace Game.ScreenNavigation.Tests
     public sealed class ScreenMvpRegistrationTests
     {
         private GameObject root;
+        private ScreenNavigationLifetimeScope scope;
 
         [TearDown]
         public void TearDown()
         {
+            // Build() queued the controllers' Start on the player loop; disposing the container cancels it,
+            // otherwise Start runs later on destroyed views (MissingReferenceException in the Console).
+            if (scope != null) scope.DisposeCore();
             if (root != null) UnityEngine.Object.DestroyImmediate(root);
         }
 
@@ -22,7 +26,7 @@ namespace Game.ScreenNavigation.Tests
         {
             root = new GameObject("MVP registration test");
             root.SetActive(false);
-            var scope = root.AddComponent<ScreenNavigationLifetimeScope>();
+            scope = root.AddComponent<ScreenNavigationLifetimeScope>();
             scope.autoRun = false;
 
             var views = new ScreenView[]
