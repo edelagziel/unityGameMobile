@@ -1,4 +1,5 @@
 using Game.Services.Save;
+using Game.Services.Wallet;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -40,6 +41,7 @@ namespace Game.Bootstrap
         {
             // Services, in init order: BootstrapFlow starts them from top to bottom.
             builder.Register<PlayerPrefsSaveService>(Lifetime.Singleton).AsImplementedInterfaces(); // 1 · Save
+            builder.Register<WalletService>(Lifetime.Singleton).AsImplementedInterfaces();          // 2 · Wallet: loads Cash from Save
 
             builder.RegisterEntryPoint<BootstrapFlow>().WithParameter("firstScene", firstScene);
         }

@@ -3,7 +3,9 @@
     "rootNamespace": "Game",
     "references": [
         "Services",
-        "VContainer"
+        "VContainer",
+        "UnityEngine.UI",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
