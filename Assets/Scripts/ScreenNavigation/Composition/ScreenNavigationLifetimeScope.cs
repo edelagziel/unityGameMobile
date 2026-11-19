@@ -7,14 +7,11 @@ namespace Game.ScreenNavigation
     public sealed class ScreenNavigationLifetimeScope : LifetimeScope
     {
         [SerializeField] private ScreenView[] screens;
-        [SerializeField] private TabBarView tabBar; // NEW
 
         protected override void Configure(IContainerBuilder builder)
         {
             if (screens == null || screens.Length == 0)
                 throw new System.InvalidOperationException("Assign at least one screen view in ScreenNavigationLifetimeScope.");
-            if (tabBar == null) // NEW
-                throw new System.InvalidOperationException("Assign the TabBarView in ScreenNavigationLifetimeScope.");
 
             var screenRegistry = new ScreenRegistry(screens);
 
@@ -24,14 +21,23 @@ namespace Game.ScreenNavigation
             builder.RegisterInstance(screenRegistry);
             builder.Register<ScreenNavigationHistory>(Lifetime.Scoped);
             builder.Register<IScreenNavigator, ScreenNavigator>(Lifetime.Scoped);
-            builder.Register<IScreenFlow, ScreenFlow>(Lifetime.Singleton);
+            builder.Register<MainMenuModel>(Lifetime.Scoped);
             builder.Register<SettingsModel>(Lifetime.Scoped);
-            builder.RegisterEntryPoint<MainMenuController>(Lifetime.Scoped);
-            builder.RegisterEntryPoint<SettingsController>(Lifetime.Scoped);
+            builder.Register<ShopModel>(Lifetime.Scoped);
+            builder.Register<InventoryModel>(Lifetime.Scoped);
+            builder.Register<SkillTreeModel>(Lifetime.Scoped);
+            builder.Register<RecipesModel>(Lifetime.Scoped);
+            builder.Register<LevelModel>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<MainMenuController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<SettingsController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<ShopController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<InventoryController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<SkillTreeController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<RecipesController>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<LevelController>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<ScreenNavigationInitializer>(Lifetime.Scoped);
 
-            builder.RegisterComponent(tabBar); // NEW
-            builder.RegisterEntryPoint<TabBarController>(Lifetime.Scoped); // NEW
+            builder.Register<TabHighlightSelection>(Lifetime.Scoped);
         }
     }
 }

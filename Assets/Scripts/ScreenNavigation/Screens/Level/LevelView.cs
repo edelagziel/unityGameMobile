@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.ScreenNavigation
 {
-    public sealed class LevelView : MonoBehaviour
+    public sealed class LevelView : ScreenView
     {
         [SerializeField] private Button backButton;
         public event Action BackPressed;
