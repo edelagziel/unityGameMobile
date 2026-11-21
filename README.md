@@ -20,7 +20,12 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 - **Assemblies**: `Game` → `Services`; `Services` references nothing of ours. Details in `AGENTS.md`.
 
 ## Milestone 2
-- Phone recording (current build, recorded 21.11), Home → Level → Home: VIDEO_HERE
+- Phone recording (current build, recorded 21.11), Home → Level → Home: 
+
+
+https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
+
+
 - Device Simulator, phone and iPad:
 
 <img src="docs/phone_view.png" width="280"> <img src="docs/ipad_view.png" width="280">
