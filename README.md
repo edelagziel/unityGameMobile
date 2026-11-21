@@ -19,6 +19,17 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 - **Home** holds every screen, including the battle: tabs switch with the screen navigator, Settings and Level open on top and close with Back.
 - **Assemblies**: `Game` → `Services`; `Services` references nothing of ours. Details in `AGENTS.md`.
 
+## Milestone 2
+- Phone recording (current build, recorded 21.11), Home → Level → Home: 
+
+
+https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
+
+
+- Device Simulator, phone and iPad:
+
+<img src="docs/phone_view.png" width="280"> <img src="docs/ipad_view.png" width="280">
+
 ## Repo map
 | File | What it is |
 | --- | --- |
@@ -27,3 +38,5 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 | `AGENTS.md` | Context for AI coding tools: architecture, rules, conventions |
 | `CLAUDE.md` | Points Claude Code to `AGENTS.md` |
 | `docs/architecture.webp` | The architecture diagram above |
+| `docs/simulator-*.png` | Device Simulator screenshots (Milestone 2) |
+| `docs/phone_view.png`, `docs/ipad_view.png` | Device Simulator screenshots (Milestone 2) |

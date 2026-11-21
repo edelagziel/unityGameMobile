@@ -2,6 +2,18 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-21 — Package name com.edenalan.battleforge and minimum API 29 (decided 2026-11-13)
+
+Options: Unity default com.DefaultCompany.unityGameMobile / com.edenalan.battleforge; minimum API 23 (Unity default) / 26 / 29
+
+Chose: com.edenalan.battleforge, minimum API level 29 (Android 10), IL2CPP + ARM64, portrait.
+
+Why: The package name is the app's permanent ID on the phone and on Google Play and cannot change after publishing, so it names our team and our game instead of Unity's default. API 29 is the course target and still covers most Android phones in use. Google Play requires 64-bit builds, so IL2CPP + ARM64.
+
+AI: Claude explained the reverse-domain format and that the package name can't change after publishing; we chose the name.
+
+Who: Alan (set the Player Settings), Eden
+
 2026-11-19 — Services behind interfaces, started by a Bootstrap scope (VContainer)
 
 Options: Static `Services` class (as in Lesson 3) / VContainer root scope with constructor injection / Singleton MonoBehaviours
