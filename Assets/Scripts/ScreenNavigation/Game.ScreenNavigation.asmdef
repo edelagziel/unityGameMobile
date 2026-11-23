@@ -2,6 +2,7 @@
   "name": "Game.ScreenNavigation",
   "rootNamespace": "Game.ScreenNavigation",
   "references": [
+    "Services",
     "VContainer",
     "UnityEngine.UI"
   ],
