@@ -49,6 +49,11 @@ namespace Game.ScreenNavigation.Tests
             level = CreateView<LevelView>("Level");
             levelBackButton = CreateButton(level.transform, "Back");
             Assign(level, "backButton", levelBackButton);
+            Assign(level, "winButton", CreateButton(level.transform, "Win"));
+            Assign(level, "loseButton", CreateButton(level.transform, "Lose"));
+            var resultPanel = new GameObject("Result").AddComponent<BattleResultPanel>();
+            resultPanel.transform.SetParent(level.transform);
+            Assign(level, "resultPanel", resultPanel);
 
             navigator = new RecordingNavigator();
             root.SetActive(true);
@@ -107,7 +112,9 @@ namespace Game.ScreenNavigation.Tests
         [Test]
         public void LevelOwnsBackActionAndUnsubscribes()
         {
-            var controller = new LevelController(level, new LevelModel(), navigator);
+            using var config = new FakeConfig(win: 150, lose: 30);
+            var controller = new LevelController(level, new LevelModel(), navigator,
+                new BattleRewardGranter(config, new FakeWallet()));
             controller.Start();
 
             levelBackButton.onClick.Invoke();
@@ -138,29 +145,6 @@ namespace Game.ScreenNavigation.Tests
             var serialized = new SerializedObject(target);
             serialized.FindProperty(field).objectReferenceValue = value;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        private sealed class RecordingNavigator : IScreenNavigator
-        {
-            public Type LastPushed { get; private set; }
-            public int PushCount { get; private set; }
-            public int PopCount { get; private set; }
-
-            public bool Push<TView>() where TView : ScreenView
-            {
-                LastPushed = typeof(TView);
-                PushCount++;
-                return true;
-            }
-
-            public bool Pop()
-            {
-                PopCount++;
-                return true;
-            }
-
-            public bool Replace<TView>() where TView : ScreenView => throw new NotSupportedException();
-            public bool ResetTo<TView>() where TView : ScreenView => throw new NotSupportedException();
         }
     }
 }

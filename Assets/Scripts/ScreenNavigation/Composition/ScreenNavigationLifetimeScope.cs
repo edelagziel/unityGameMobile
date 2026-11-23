@@ -28,6 +28,7 @@ namespace Game.ScreenNavigation
             builder.Register<SkillTreeModel>(Lifetime.Scoped);
             builder.Register<RecipesModel>(Lifetime.Scoped);
             builder.Register<LevelModel>(Lifetime.Scoped);
+            builder.Register<BattleRewardGranter>(Lifetime.Scoped);
             builder.RegisterEntryPoint<MainMenuController>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<SettingsController>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<ShopController>(Lifetime.Scoped).AsSelf();
