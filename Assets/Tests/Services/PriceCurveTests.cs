@@ -47,10 +47,10 @@ namespace Game.Services.Tests
         }
 
         [Test]
-        public void ANegativeLevelThrows()
+        public void ANegativeLevelUsesFirstPurchasePrice()
         {
             var curve = new PriceCurve(baseCost: 100, growth: 1.5f, maxLevel: 10);
-            Assert.Throws<ArgumentOutOfRangeException>(() => curve.PriceAt(-1));
+            Assert.AreEqual(100, curve.PriceAt(-1));
         }
 
         [TestCase(0, 1.5f, 10)]
