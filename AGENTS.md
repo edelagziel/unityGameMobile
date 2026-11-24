@@ -25,6 +25,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **Home** has two scopes:
   - `ScreenNavigationLifetimeScope`: all screens. `IScreenNavigator` shows one screen at a time. The five tabs (Shop, Inventory, Battle/MainMenu, Skill tree, Recipes) are `TabbedScreenView`s and switch with `ResetTo`; Settings and Level open with `Push` and close with `Pop`.
   - `HudLifetimeScope` (a `SceneLifetimeScope`): the Cash label, `CashView` + `CashController`.
+- **End of a battle**: `LevelView.Finished(BattleOutcome)` (the stand-in Win/Lose buttons for now) → `LevelController` → `BattleRewardGranter` (the only place a battle pays Cash: reward from `IConfigService`, into `IWalletService`) → `BattleResultPanel`, a half-transparent panel inside LevelView over the dimmed battle → Back to menu (`ResetTo<MainMenuView>`). A battle pays once.
 - **Screens are MVC**: `XView` (MonoBehaviour: UI references and events only), `XController` (plain C#, `IStartable` + `IDisposable`, the logic), `XModel` (screen state).
 - **Assemblies**:
   - `Services` (`Assets/Scripts/Services`): references nothing of ours.

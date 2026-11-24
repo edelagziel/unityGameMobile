@@ -1,9 +1,13 @@
 using System;
 using Game.ScreenNavigation;
+using Game.Services.Config;
+using Game.Services.Wallet;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
+using VContainer.Unity;
 
 namespace Game.ScreenNavigation.Tests
 {
@@ -11,6 +15,7 @@ namespace Game.ScreenNavigation.Tests
     {
         private GameObject root;
         private ScreenNavigationLifetimeScope scope;
+        private FakeConfig config;
 
         [TearDown]
         public void TearDown()
@@ -19,6 +24,7 @@ namespace Game.ScreenNavigation.Tests
             // otherwise Start runs later on destroyed views (MissingReferenceException in the Console).
             if (scope != null) scope.DisposeCore();
             if (root != null) UnityEngine.Object.DestroyImmediate(root);
+            config?.Dispose();
         }
 
         [Test]
@@ -57,7 +63,16 @@ namespace Game.ScreenNavigation.Tests
                 screens.GetArrayElementAtIndex(i).objectReferenceValue = views[i];
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
-            scope.Build();
+            // In the game these services come from the parent Bootstrap scope; here, in-memory stand-ins.
+            config = new FakeConfig(win: 150, lose: 30);
+            using (LifetimeScope.Enqueue(builder =>
+            {
+                builder.RegisterInstance<IWalletService>(new FakeWallet());
+                builder.RegisterInstance<IConfigService>(config);
+            }))
+            {
+                scope.Build();
+            }
 
             var requiredTypes = new[]
             {
@@ -67,7 +82,8 @@ namespace Game.ScreenNavigation.Tests
                 typeof(InventoryModel), typeof(InventoryController),
                 typeof(SkillTreeModel), typeof(SkillTreeController),
                 typeof(RecipesModel), typeof(RecipesController),
-                typeof(LevelModel), typeof(LevelController)
+                typeof(LevelModel), typeof(LevelController),
+                typeof(BattleRewardGranter)
             };
             foreach (Type type in requiredTypes)
                 Assert.IsNotNull(scope.Container.Resolve(type), type.Name);

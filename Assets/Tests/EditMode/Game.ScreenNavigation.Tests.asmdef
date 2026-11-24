@@ -3,8 +3,10 @@
   "rootNamespace": "Game.ScreenNavigation.Tests",
   "references": [
     "Game.ScreenNavigation",
+    "Services",
     "UnityEngine.UI",
-    "VContainer"
+    "VContainer",
+    "Unity.TextMeshPro"
   ],
   "includePlatforms": [
     "Editor"
