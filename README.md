@@ -15,14 +15,14 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 ![Scenes, services and init order](docs/architecture.webp)
 
 - **Bootstrap** (scene 0, no UI) starts the services in order, keeps them alive with DontDestroyOnLoad, then opens **Home** (scene 1).
-- **Services** sit behind interfaces in their own assembly: 1 · `ISaveService` (PlayerPrefs, JSON), 2 · `IConfigService` (the `EconomyConfig` asset: every economy number), 3 · `IWalletService` (the player's Cash, saved through Save). Screens get them by constructor injection (VContainer) and never touch PlayerPrefs.
+- **Services** initialize in order. `ISaveService` persists values as JSON in PlayerPrefs. `IConfigService` reads local defaults from the root asset assigned to Bootstrap. `IWalletService` loads the player's Cash through the save service. Screens receive services by constructor injection.
 - **Home** holds every screen, including the battle: tabs switch with the screen navigator, Settings and Level open on top and close with Back.
 - **Home scopes.** Home has two children of the persistent Bootstrap scope. `HomeLifetimeScope` wires the Cash HUD to the wallet. `ScreenNavigationLifetimeScope` owns screen navigation, the Level screen and its battle reward flow.
 - **Runtime assemblies.** `Game` contains Bootstrap and the Cash HUD. `Game.ScreenNavigation` contains the navigator and screens. Both depend on `Services`, which has no dependency on either assembly. [Folder and assembly conventions](AGENTS.md#folder-ownership)
 
 ## Milestone 4
 - **Economy sheet:** [Battle Forge — Economy](https://docs.google.com/spreadsheets/d/1F4X58x4EBTdsWn25kLN42NWPBHyPkzjbTYCo3uSB7S0/edit?usp=sharing). A session is 2 battles: 1 win (150 Cash) + 1 loss (30 Cash) = 180 Cash. The Skill tree upgrade costs 100 × 1.5^level. Both checks say Yes; the last upgrade comes after about 63 sessions. Why 1.5: see `DECISIONS.md`.
-- **The numbers in the game:** `Assets/Config/EconomyConfig.asset`, read through `IConfigService` (the slides' `Services.Config.Economy`, here by constructor injection). No economy number lives in a script.
+- **In the game**, Bootstrap references `GameConfig.asset`. Its Economy field points to `EconomyConfig.asset`, where designers edit the rewards and price curve. The battle reward code reads `config.Economy.BattleRewards.RewardFor(outcome)`. [Configuration conventions](AGENTS.md#game-configuration)
 - **Loop:** Battle → Win / Lose → the result over the dimmed battle (+150 / +30) → Back to menu, with the Cash added and saved.
 
 ## Milestone 2
@@ -49,7 +49,7 @@ https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
 | `pitch.md` | One-page pitch of the game |
 | `DECISIONS.md` | Every real decision the team made, and why |
 | `CREDITS.md` | Where every piece of art, the font and the libraries come from |
-| `Assets/Config/EconomyConfig.asset` | Every economy number: battle rewards, upgrade price curve |
+| [Config assets](Assets/Config) | Root game configuration and the economy defaults for battle rewards and upgrade prices |
 | `AGENTS.md` | Context for AI coding tools: architecture, rules, conventions |
 | `CLAUDE.md` | Points Claude Code to `AGENTS.md` |
 | `docs/architecture.webp` | The architecture diagram above |

@@ -7,6 +7,6 @@ namespace Game.Services.Config
     /// </summary>
     public interface IConfigService
     {
-        EconomyConfig Economy { get; }
+        IEconomyConfig Economy { get; }
     }
 }

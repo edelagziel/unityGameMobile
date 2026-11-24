@@ -17,7 +17,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **Bootstrap** runs once per launch. The `BootstrapLifetimeScope` GameObject persists across scene loads and registers every service. `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
 - **Services** (`Assets/Scripts/Services`), started in this order:
   1. `ISaveService` → `PlayerPrefsSaveService`: generic `Save<T>` / `Load<T>`, each value as JSON in PlayerPrefs, written immediately. The only class that touches PlayerPrefs.
-  2. `IConfigService` → `ScriptableObjectConfigService`: `Economy` is the `EconomyConfig` asset (`Assets/Config/EconomyConfig.asset`), dragged into `BootstrapLifetimeScope` → Economy. `EconomyConfig.FindProblem()` is the one check of the numbers: never throws; Bootstrap logs it as an error at startup and `EconomyConfigAssetTests` checks the shipped asset.
+  2. `IConfigService` → `ScriptableObjectConfigService` receives the root asset from Bootstrap. Gameplay injects `IConfigService` and reads typed domains such as `config.Economy` (`IEconomyConfig`).
   3. `IWalletService` → `WalletService`: the player's Cash (`Add`, `TrySpend`, `CashChanged`), loaded from and saved through `ISaveService`.
   Every service implements `IInitializableService`.
 - **How scenes get services**: a scope's parent is the Bootstrap scope, so its controllers receive services by constructor injection. `HomeLifetimeScope` gets that parent from `SceneLifetimeScope` (code); `ScreenNavigationLifetimeScope` from its Parent field in the Inspector (`BootstrapLifetimeScope`), so the navigation code doesn't depend on Game.
@@ -33,6 +33,13 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
   - `Game.asmdef` at `Assets/Scripts` owns Bootstrap, the Bootstrap and Home scopes, and the Cash HUD. The HUD uses a GUID-based `.asmref` to select Game inside Features.
   - `Game.ScreenNavigation.asmdef` at `Assets/Scripts/Features` owns navigation, Home screens and Battle. A GUID-based `.asmref` keeps `Composition/ScreenNavigation` in this assembly. Both presentation assemblies reference Services, VContainer, uGUI and TextMeshPro independently.
   - Tests (Editor only): `Services.Tests` (`Assets/Tests/Services`), `Game.ScreenNavigation.Tests` (`Assets/Tests/EditMode`).
+
+## Game configuration
+
+- Bootstrap holds `Assets/Config/GameConfig.asset`. Its Economy field references the existing `EconomyConfig.asset` beside it. Each domain owns its values and validation. Missing required references prevent startup. Invalid local economy numbers produce a startup error and the shipped-asset test catches them before release.
+- To add a domain, define its data under `Services/Config/Models/<Domain>`, create its asset in `Assets/Config`, and assign it to a typed field in `Models/GameConfig.cs`. Expose its gameplay-facing read API through `IConfigService`. Validate it during initialization and test the shipped reference and values. Bootstrap still takes one asset.
+- A future remote implementation can start with the local defaults, fetch overrides during `InitializeAsync`, validate the merged candidate, and publish it through the same domain properties. On an unavailable source or invalid override, keep the validated defaults. Apply overrides in memory so the authored assets retain their values.
+- Game configuration holds designer-authored rules shared across players. Player settings hold individual preferences such as audio volume. Persistent player state records progress such as Cash. Player-owned settings and progress belong to their respective features and use the save service for persistence.
 
 ## Folder ownership
 

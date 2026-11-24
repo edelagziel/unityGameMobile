@@ -8,7 +8,7 @@ namespace Game.Services.Config
     /// Read it through <see cref="IConfigService.Economy"/>, never by a direct reference to the asset.
     /// </summary>
     [CreateAssetMenu(menuName = "Game/Economy Config", fileName = "EconomyConfig")]
-    public sealed class EconomyConfig : ScriptableObject
+    public sealed class EconomyConfig : ScriptableObject, IEconomyConfig
     {
         [Header("Sources · Cash in")]
         [SerializeField] private BattleRewards battleRewards;

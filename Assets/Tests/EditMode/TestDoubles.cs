@@ -71,7 +71,8 @@ namespace Game.ScreenNavigation.Tests
         public FakeConfig(int win, int lose) =>
             Economy = EconomyConfig.Create(new BattleRewards(win, lose), new PriceCurve(baseCost: 100, growth: 1.5f, maxLevel: 10));
 
-        public EconomyConfig Economy { get; }
+        private EconomyConfig Economy { get; }
+        IEconomyConfig IConfigService.Economy => Economy;
 
         public void Dispose()
         {

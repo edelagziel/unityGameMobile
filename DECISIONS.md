@@ -2,6 +2,12 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Give Bootstrap one game configuration asset
+
+Bootstrap supplies `GameConfig.asset` to the configuration service. The root links to the existing economy asset, so designers still edit rewards and prices in one place. Adding a domain extends the root and the typed service API while keeping Bootstrap's Inspector wiring stable.
+
+Gameplay reads `IConfigService.Economy` through the read-only `IEconomyConfig` interface. This lets a future provider publish validated overrides during initialization while keeping the same battle reward code. The current provider uses the local assets. [Configuration conventions](AGENTS.md#game-configuration)
+
 2026-11-24 — Organize scripts by feature and preserve assembly ownership
 
 Group LifetimeScopes under `Composition` so developers can find dependency registrations in one place. Keep each screen's MVC files together. The Level screen, result panel and reward grant belong in `Features/Battle`, even though the screen runs in Home and its dependencies live in the navigation scope.

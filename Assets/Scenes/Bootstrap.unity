@@ -153,7 +153,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   firstScene: Home
-  economy: {fileID: 11400000, guid: bcc596daa6f40da4ebf6985002035b52, type: 2}
+  gameConfig: {fileID: 11400000, guid: df9d9c90434b17244839aa204f371e7d, type: 2}
 --- !u!4 &783019717
 Transform:
   m_ObjectHideFlags: 0

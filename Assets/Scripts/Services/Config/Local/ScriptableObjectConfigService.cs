@@ -5,31 +5,27 @@ using UnityEngine;
 
 namespace Game.Services.Config
 {
-    /// <summary>
-    /// Today's config: the EconomyConfig asset that BootstrapLifetimeScope holds in its Inspector.
-    /// A service is a plain C# class with no Inspector, so Bootstrap passes the asset to the constructor.
-    /// </summary>
     public sealed class ScriptableObjectConfigService : IConfigService, IInitializableService
     {
-        public ScriptableObjectConfigService(EconomyConfig economy)
+        private readonly GameConfig defaults;
+
+        public ScriptableObjectConfigService(GameConfig defaults)
         {
-            // Unity's == also catches a destroyed asset, so no ?? here.
-            if (economy == null)
-                throw new ArgumentNullException(nameof(economy), "Drag the EconomyConfig asset into BootstrapLifetimeScope → Economy.");
-            Economy = economy;
+            if (defaults == null)
+                throw new ArgumentNullException(nameof(defaults), "Assign GameConfig to BootstrapLifetimeScope.");
+            if (defaults.Economy == null)
+                throw new ArgumentException("Assign EconomyConfig to the Economy field of GameConfig.", nameof(defaults));
+            this.defaults = defaults;
         }
 
-        public EconomyConfig Economy { get; }
+        public IEconomyConfig Economy => defaults.Economy;
 
-        /// <summary>
-        /// Reports a wrong number in red in the Console, but lets the game run.
-        /// A remote config will also fetch the server values here.
-        /// </summary>
         public Task InitializeAsync(CancellationToken cancellation)
         {
-            var problem = Economy.FindProblem();
+            cancellation.ThrowIfCancellationRequested();
+            var problem = defaults.Economy.FindProblem();
             if (problem != null)
-                Debug.LogError($"EconomyConfig: {problem} Fix it in Assets/Config/EconomyConfig.", Economy);
+                Debug.LogError($"EconomyConfig: {problem}", defaults.Economy);
             return Task.CompletedTask;
         }
     }
