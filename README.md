@@ -40,6 +40,7 @@ https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
 | --- | --- |
 | `pitch.md` | One-page pitch of the game |
 | `DECISIONS.md` | Every real decision the team made, and why |
+| `CREDITS.md` | Where every piece of art, the font and the libraries come from |
 | `Assets/Config/EconomyConfig.asset` | Every economy number: battle rewards, upgrade price curve |
 | `AGENTS.md` | Context for AI coding tools: architecture, rules, conventions |
 | `CLAUDE.md` | Points Claude Code to `AGENTS.md` |
