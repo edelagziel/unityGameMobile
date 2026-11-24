@@ -2,6 +2,36 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Restore the Screen Navigation module
+
+Group the seven screens and shared navigation under `ScreenNavigation`. Keep the battle result panel and reward granter beside Level. The navigation scope stays under `Composition` and the Cash HUD stays under Home.
+
+2026-11-24 — Give Bootstrap one game configuration asset
+
+Bootstrap supplies `GameConfig.asset` to the configuration service. The root links to the existing economy asset, so designers still edit rewards and prices in one place. Adding a domain extends the root and the typed service API while keeping Bootstrap's Inspector wiring stable.
+
+Gameplay reads `IConfigService.Economy` through the read-only `IEconomyConfig` interface. This lets a future provider publish validated overrides during initialization while keeping the same battle reward code. The current provider uses the local assets. [Configuration conventions](AGENTS.md#game-configuration)
+
+2026-11-24 — Organize scripts by feature and preserve assembly ownership
+
+Group LifetimeScopes under `Composition` so developers can find dependency registrations in one place. Keep each screen's MVC files together. The Level screen, result panel and reward grant belong in `Features/Battle`, even though the screen runs in Home and its dependencies live in the navigation scope.
+
+Keep shared services and configuration in the `Services` assembly. Both battle presentation and economy configuration consume `BattleOutcome`, so its source lives in `Services/Domain/Battle`.
+
+Two GUID-based assembly references preserve the existing dependency graph across folder boundaries. The Cash HUD under Home compiles into `Game`, and the navigation scope under Composition compiles into `Game.ScreenNavigation`. The refactor preserved namespaces, Unity asset GUIDs and DI lifetimes. [Implementation in 76fabee](https://github.com/edelagziel/unityGameMobile/commit/76fabee)
+
+2026-11-24 — Keep Screen Navigation independent and give Home its own scope
+
+Options: Combine navigation and HUD registrations in one Home container / Keep Screen Navigation independent and broaden the existing HUD scope to cover Home-specific dependencies.
+
+Chose: Keep `BootstrapLifetimeScope` as the parent of two sibling scopes in Home. `ScreenNavigationLifetimeScope` keeps its existing screen registrations and serialized references. `HomeLifetimeScope` replaces `HudLifetimeScope` and registers `CashView` and `CashController`. The HUD receives the global wallet from Bootstrap.
+
+Why: Screen Navigation owns the screens and their history. The HUD needs the wallet and can operate independently of navigation. Level already runs as a screen in Home, with `LevelModel`, `LevelController`, and `BattleRewardGranter` registered in Screen Navigation. Introduce a `BattleLifetimeScope` only when a concrete dependency needs to be created and disposed for each battle.
+
+AI: Codex verified the two containers against the existing registrations and checked the shared wallet and Level navigation in Play Mode.
+
+Who: Eden
+
 2026-11-24 — Economy: a win pays 150, a loss 30, upgrades cost 100 × 1.5 per level
 
 Options: Upgrade price growth 1.3 / 1.5 / 2.0 (base cost 100, max level 10, 180 Cash per session)

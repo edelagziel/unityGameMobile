@@ -15,8 +15,8 @@ namespace Game.Bootstrap
     public sealed class BootstrapLifetimeScope : LifetimeScope
     {
         [SerializeField] private string firstScene = "Home";
-        [Tooltip("Every economy number of the game: Assets/Config/EconomyConfig.asset.")]
-        [SerializeField] private EconomyConfig economy;
+        [Tooltip("Local configuration defaults: Assets/Config/GameConfig.asset.")]
+        [SerializeField] private GameConfig gameConfig;
 
         private static BootstrapLifetimeScope instance;
 
@@ -45,7 +45,7 @@ namespace Game.Bootstrap
             // Services, in init order: BootstrapFlow starts them from top to bottom.
             builder.Register<PlayerPrefsSaveService>(Lifetime.Singleton).AsImplementedInterfaces(); // 1 · Save
             builder.Register<ScriptableObjectConfigService>(Lifetime.Singleton)                     // 2 · Config: the asset above
-                .WithParameter(economy)
+                .WithParameter(gameConfig)
                 .AsImplementedInterfaces();
             builder.Register<WalletService>(Lifetime.Singleton).AsImplementedInterfaces();          // 3 · Wallet: loads Cash from Save
 

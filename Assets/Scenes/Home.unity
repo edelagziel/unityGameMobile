@@ -3589,7 +3589,7 @@ GameObject:
   - component: {fileID: 1518081530}
   - component: {fileID: 1518081531}
   m_Layer: 0
-  m_Name: Hud
+  m_Name: HomeLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

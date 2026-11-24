@@ -31,20 +31,5 @@ namespace Game.Services.Config
         public int BaseCost => baseCost;
         public float Growth => growth;
         public int MaxLevel => maxLevel;
-
-        /// <summary>Base cost, growth and max level are all at least 1.</summary>
-        public bool IsValid => baseCost >= 1 && growth >= 1f && maxLevel >= 1;
-
-        public bool IsMaxed(int level) => level >= maxLevel;
-
-        /// <summary>Price of the next purchase. Negative input is treated as level zero rather than throwing during gameplay.</summary>
-        public int PriceAt(int level)
-        {
-            if (level < 0) level = 0;
-
-            // double, so the sheet and the game round the same way (338, not 337).
-            var price = baseCost * Math.Pow(growth, level);
-            return price >= int.MaxValue ? int.MaxValue : (int)Math.Round(price, MidpointRounding.AwayFromZero);
-        }
     }
 }

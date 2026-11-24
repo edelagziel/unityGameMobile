@@ -14,32 +14,49 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 
 ## Architecture
 - **Scenes** (Scene List order): `Bootstrap` (0) → `Home` (1). There is no separate Level scene: every screen, including the battle (`LevelView`), lives in Home.
-- **Bootstrap** (`Assets/Scripts/Game/Bootstrap`): one GameObject with `BootstrapLifetimeScope` (DontDestroyOnLoad, runs once per launch). It registers every service; `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
+- **Bootstrap** runs once per launch. The `BootstrapLifetimeScope` GameObject persists across scene loads and registers every service. `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
 - **Services** (`Assets/Scripts/Services`), started in this order:
   1. `ISaveService` → `PlayerPrefsSaveService`: generic `Save<T>` / `Load<T>`, each value as JSON in PlayerPrefs, written immediately. The only class that touches PlayerPrefs.
-  2. `IConfigService` → `ScriptableObjectConfigService`: `Economy` is the `EconomyConfig` asset (`Assets/Config/EconomyConfig.asset`), dragged into `BootstrapLifetimeScope` → Economy. `EconomyConfig.FindProblem()` is the one check of the numbers: never throws; Bootstrap logs it as an error at startup and `EconomyConfigAssetTests` checks the shipped asset.
+  2. `IConfigService` → `ScriptableObjectConfigService` receives the root asset from Bootstrap. Gameplay injects `IConfigService` and reads typed domains such as `config.Economy` (`IEconomyConfig`).
   3. `IWalletService` → `WalletService`: the player's Cash (`Add`, `TrySpend`, `CashChanged`), loaded from and saved through `ISaveService`.
   Every service implements `IInitializableService`.
-- **How scenes get services**: a scope's parent is the Bootstrap scope, so its controllers receive services by constructor injection. `HudLifetimeScope` gets that parent from `SceneLifetimeScope` (code); `ScreenNavigationLifetimeScope` from its Parent field in the Inspector (`BootstrapLifetimeScope`), so the navigation code doesn't depend on Game.
-- **Economy numbers** (rewards, prices, growth) live only in `EconomyConfig`: `BattleRewards` (`RewardFor(BattleOutcome)`) and `PriceCurve` (plain data structs from the Inspector) (`PriceAt(level)` = round(base × growth^level), the same formula as the economy sheet; `UpgradeCost(level)` for the Skill tree upgrade). The Lesson 4 slides write `Services.Config.Economy`; here a controller takes `IConfigService config` in its constructor and reads `config.Economy`.
+- **How scenes get services**: a scope's parent is the Bootstrap scope, so its controllers receive services by constructor injection. `HomeLifetimeScope` gets that parent from `SceneLifetimeScope` (code); `ScreenNavigationLifetimeScope` from its Parent field in the Inspector (`BootstrapLifetimeScope`), so the navigation code doesn't depend on Game.
+- **Economy numbers** live in `EconomyConfig`. `BattleRewardGranter` selects the configured payout. `SkillTreeModel` calculates upgrade prices and checks the purchase limit using the configured curve.
 - **Home** has two scopes:
   - `ScreenNavigationLifetimeScope`: all screens. `IScreenNavigator` shows one screen at a time. The five tabs (Shop, Inventory, Battle/MainMenu, Skill tree, Recipes) are `TabbedScreenView`s and switch with `ResetTo`; Settings and Level open with `Push` and close with `Pop`.
-  - `HudLifetimeScope` (a `SceneLifetimeScope`): the Cash label, `CashView` + `CashController`.
+  - `HomeLifetimeScope` owns Home-specific dependencies. It registers the HUD's `CashView` and `CashController`, which receives `IWalletService` from Bootstrap.
+  - Keep Screen Navigation independent of the Home container. Its existing scope owns `LevelModel`, `LevelController`, and `BattleRewardGranter`. Introduce a `BattleLifetimeScope` only when a dependency needs to be created and disposed for each battle.
 - **End of a battle**: `LevelView.Finished(BattleOutcome)` (the stand-in Win/Lose buttons for now) → `LevelController` → `BattleRewardGranter` (the only place a battle pays Cash: reward from `IConfigService`, into `IWalletService`) → `BattleResultPanel`, a half-transparent panel inside LevelView over the dimmed battle → Back to menu (`ResetTo<MainMenuView>`). A battle pays once.
 - **Screens are MVC**: `XView` (MonoBehaviour: UI references and events only), `XController` (plain C#, `IStartable` + `IDisposable`, the logic), `XModel` (screen state).
 - **Assemblies**:
-  - `Services` (`Assets/Scripts/Services`): references nothing of ours.
-  - `Game` (`Assets/Scripts/Game`): Bootstrap and HUD. References Services, VContainer, uGUI, TextMeshPro.
-  - `Game.ScreenNavigation` (`Assets/Scripts/ScreenNavigation`): navigator and screens. References Services, VContainer, uGUI.
+  - `Services` owns shared service contracts, implementations, configuration models and battle domain data in `Assets/Scripts/Services`. It references no other project assembly.
+  - `Game.asmdef` at `Assets/Scripts` owns Bootstrap, the Bootstrap and Home scopes, and the Cash HUD. The HUD uses a GUID-based `.asmref` to select Game inside Features.
+  - `Game.ScreenNavigation.asmdef` at `Assets/Scripts/ScreenNavigation` owns navigation, Home screens and Battle. A GUID-based `.asmref` keeps `Composition/ScreenNavigation` in this assembly. Both presentation assemblies reference Services, VContainer, uGUI and TextMeshPro independently.
   - Tests (Editor only): `Services.Tests` (`Assets/Tests/Services`), `Game.ScreenNavigation.Tests` (`Assets/Tests/EditMode`).
-  Services never references Game or Game.ScreenNavigation.
+
+## Game configuration
+
+- Bootstrap holds `Assets/Config/GameConfig.asset`. Its Economy field references the existing `EconomyConfig.asset` beside it. Configuration ScriptableObjects and nested models are passive data containers. Gameplay systems own business calculations. The configuration layer owns runtime validation. Missing required references prevent startup. Invalid local economy numbers produce a startup error and the shipped-asset test catches them before release.
+- To add a domain, define its data under `Services/Config/Models/<Domain>`, create its asset in `Assets/Config`, and assign it to a typed field in `Models/GameConfig.cs`. Expose its gameplay-facing read API through `IConfigService`. Add its startup checks to the configuration service and test the shipped reference and values. Put calculations in the consuming feature. Bootstrap still takes one asset.
+- A future remote implementation can start with the local defaults, fetch overrides during `InitializeAsync`, validate the merged candidate, and publish it through the same domain properties. On an unavailable source or invalid override, keep the validated defaults. Apply overrides in memory so the authored assets retain their values.
+- Game configuration holds designer-authored rules shared across players. Player settings hold individual preferences such as audio volume. Persistent player state records progress such as Cash. Player-owned settings and progress belong to their respective features and use the save service for persistence.
+
+## Folder ownership
+
+Paths below are relative to `Assets/Scripts`.
+
+- `Composition` holds all LifetimeScopes, including the scene scope base. Keep registration and parent wiring here. Launch sequencing belongs in `Bootstrap/BootstrapFlow.cs`.
+- In `Services/<Service>`, put contracts in `Interfaces`. Use `Local` for PlayerPrefs and ScriptableObject adapters and add `Remote` only for an implemented remote source. The wallet uses the save contract, so its logic lives directly in `Services/Wallet`. Shared startup contracts live in `Services/Interfaces`.
+- Economy definitions live in `Services/Config/Models/Economy`. Their authored ScriptableObject asset lives in `Assets/Config`. Shared battle vocabulary such as `BattleOutcome` lives in `Services/Domain/Battle` so both configuration and presentation can consume it.
+- Keep shared navigation under `ScreenNavigation` and each screen's MVC files under `ScreenNavigation/Screens/<Screen>`. The Level folder also owns the result panel and reward grant. The independent Cash HUD lives in `Features/Home/CashHud`. Folder placement describes responsibility. Scope registrations determine instance lifetime.
+- Move Unity assets and folders with their existing `.meta` files. Preserve GUIDs, serialized type identities and each script's assembly when moving across an assembly boundary.
 
 ## Rules for AI
 - Screens and gameplay code get services through their interfaces by constructor injection. Never call PlayerPrefs outside `PlayerPrefsSaveService`, and never add a static service locator.
 - A new service: interface + class in `Services`, implement `IInitializableService`, add one `Register` line in `BootstrapLifetimeScope` in init order (after the services it uses).
 - Services must never reference Game. If a service needs game data, pass it in.
 - No economy number in a script: add a field to `EconomyConfig` (or reuse `PriceCurve`), set it in the asset, read it through `IConfigService`.
-- A new screen: `XView`, `XController`, `XModel` in `Screens/X`, registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
+- A new screen: `XView`, `XController`, `XModel` in its screen folder (for example, `ScreenNavigation/Screens/Shop`), registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
 - Don't change Player Settings, the package name, API levels or the Scene List unless asked.
 - Don't edit `.unity` scenes or prefabs as text. Write the code, then list the Editor steps for a person.
 - VContainer replaces a new file named `*LifetimeScope.cs` with an empty template when Unity imports it. After creating one, check its content.

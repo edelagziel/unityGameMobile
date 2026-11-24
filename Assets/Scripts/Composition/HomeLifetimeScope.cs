@@ -1,23 +1,24 @@
 using System;
 using Game.Bootstrap;
+using Game.Hud;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Game.Hud
+namespace Game
 {
     /// <summary>
-    /// Scope of the Home HUD. As a <see cref="SceneLifetimeScope"/>, its parent is the Bootstrap scope,
+    /// Scope for Home-specific dependencies. As a <see cref="SceneLifetimeScope"/>, its parent is the Bootstrap scope,
     /// so <see cref="CashController"/> receives the wallet service.
     /// </summary>
-    public sealed class HudLifetimeScope : SceneLifetimeScope
+    public sealed class HomeLifetimeScope : SceneLifetimeScope
     {
         [SerializeField] private CashView cashView;
 
         protected override void Configure(IContainerBuilder builder)
         {
             if (cashView == null)
-                throw new InvalidOperationException("Assign the CashView in HudLifetimeScope.");
+                throw new InvalidOperationException("Assign the CashView in HomeLifetimeScope.");
 
             builder.RegisterComponent(cashView);
             builder.RegisterEntryPoint<CashController>(Lifetime.Scoped);
