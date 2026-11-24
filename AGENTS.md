@@ -17,9 +17,11 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **Bootstrap** (`Assets/Scripts/Game/Bootstrap`): one GameObject with `BootstrapLifetimeScope` (DontDestroyOnLoad, runs once per launch). It registers every service; `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
 - **Services** (`Assets/Scripts/Services`), started in this order:
   1. `ISaveService` → `PlayerPrefsSaveService`: generic `Save<T>` / `Load<T>`, each value as JSON in PlayerPrefs, written immediately. The only class that touches PlayerPrefs.
-  2. `IWalletService` → `WalletService`: the player's Cash (`Add`, `TrySpend`, `CashChanged`), loaded from and saved through `ISaveService`.
+  2. `IConfigService` → `ScriptableObjectConfigService`: `Economy` is the `EconomyConfig` asset (`Assets/Config/EconomyConfig.asset`), dragged into `BootstrapLifetimeScope` → Economy. It checks the numbers at startup.
+  3. `IWalletService` → `WalletService`: the player's Cash (`Add`, `TrySpend`, `CashChanged`), loaded from and saved through `ISaveService`.
   Every service implements `IInitializableService`.
-- **How scenes get services**: a scene scope that needs services derives from `SceneLifetimeScope`; its parent is the Bootstrap scope, so controllers receive services by constructor injection.
+- **How scenes get services**: a scope's parent is the Bootstrap scope, so its controllers receive services by constructor injection. `HudLifetimeScope` gets that parent from `SceneLifetimeScope` (code); `ScreenNavigationLifetimeScope` from its Parent field in the Inspector (`BootstrapLifetimeScope`), so the navigation code doesn't depend on Game.
+- **Economy numbers** (rewards, prices, growth) live only in `EconomyConfig`: `BattleRewards` (`RewardFor(BattleOutcome)`) and `PriceCurve` (`PriceAt(level)` = round(base × growth^level), the same formula as the economy sheet; `UpgradeCost(level)` for the Skill tree upgrade). The Lesson 4 slides write `Services.Config.Economy`; here a controller takes `IConfigService config` in its constructor and reads `config.Economy`.
 - **Home** has two scopes:
   - `ScreenNavigationLifetimeScope`: all screens. `IScreenNavigator` shows one screen at a time. The five tabs (Shop, Inventory, Battle/MainMenu, Skill tree, Recipes) are `TabbedScreenView`s and switch with `ResetTo`; Settings and Level open with `Push` and close with `Pop`.
   - `HudLifetimeScope` (a `SceneLifetimeScope`): the Cash label, `CashView` + `CashController`.
@@ -27,7 +29,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **Assemblies**:
   - `Services` (`Assets/Scripts/Services`): references nothing of ours.
   - `Game` (`Assets/Scripts/Game`): Bootstrap and HUD. References Services, VContainer, uGUI, TextMeshPro.
-  - `Game.ScreenNavigation` (`Assets/Scripts/ScreenNavigation`): navigator and screens. References VContainer, uGUI.
+  - `Game.ScreenNavigation` (`Assets/Scripts/ScreenNavigation`): navigator and screens. References Services, VContainer, uGUI.
   - Tests (Editor only): `Services.Tests` (`Assets/Tests/Services`), `Game.ScreenNavigation.Tests` (`Assets/Tests/EditMode`).
   Services never references Game or Game.ScreenNavigation.
 
@@ -35,6 +37,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - Screens and gameplay code get services through their interfaces by constructor injection. Never call PlayerPrefs outside `PlayerPrefsSaveService`, and never add a static service locator.
 - A new service: interface + class in `Services`, implement `IInitializableService`, add one `Register` line in `BootstrapLifetimeScope` in init order (after the services it uses).
 - Services must never reference Game. If a service needs game data, pass it in.
+- No economy number in a script: add a field to `EconomyConfig` (or reuse `PriceCurve`), set it in the asset, read it through `IConfigService`.
 - A new screen: `XView`, `XController`, `XModel` in `Screens/X`, registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
 - Don't change Player Settings, the package name, API levels or the Scene List unless asked.
 - Don't edit `.unity` scenes or prefabs as text. Write the code, then list the Editor steps for a person.

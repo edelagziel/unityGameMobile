@@ -1,3 +1,5 @@
+using System;
+using Game.Services.Config;
 using Game.Services.Save;
 using Game.Services.Wallet;
 using UnityEngine;
@@ -14,6 +16,8 @@ namespace Game.Bootstrap
     public sealed class BootstrapLifetimeScope : LifetimeScope
     {
         [SerializeField] private string firstScene = "Home";
+        [Tooltip("Every economy number of the game: Assets/Config/EconomyConfig.asset.")]
+        [SerializeField] private EconomyConfig economy;
 
         private static BootstrapLifetimeScope instance;
 
@@ -39,9 +43,15 @@ namespace Game.Bootstrap
 
         protected override void Configure(IContainerBuilder builder)
         {
+            if (economy == null)
+                throw new InvalidOperationException("Drag Assets/Config/EconomyConfig into BootstrapLifetimeScope → Economy.");
+
             // Services, in init order: BootstrapFlow starts them from top to bottom.
             builder.Register<PlayerPrefsSaveService>(Lifetime.Singleton).AsImplementedInterfaces(); // 1 · Save
-            builder.Register<WalletService>(Lifetime.Singleton).AsImplementedInterfaces();          // 2 · Wallet: loads Cash from Save
+            builder.Register<ScriptableObjectConfigService>(Lifetime.Singleton)                     // 2 · Config: the asset above
+                .WithParameter(economy)
+                .AsImplementedInterfaces();
+            builder.Register<WalletService>(Lifetime.Singleton).AsImplementedInterfaces();          // 3 · Wallet: loads Cash from Save
 
             builder.RegisterEntryPoint<BootstrapFlow>().WithParameter("firstScene", firstScene);
         }
