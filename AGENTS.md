@@ -14,7 +14,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 
 ## Architecture
 - **Scenes** (Scene List order): `Bootstrap` (0) → `Home` (1). There is no separate Level scene: every screen, including the battle (`LevelView`), lives in Home.
-- **Bootstrap** (`Assets/Scripts/Game/Bootstrap`): one GameObject with `BootstrapLifetimeScope` (DontDestroyOnLoad, runs once per launch). It registers every service; `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
+- **Bootstrap** runs once per launch. The `BootstrapLifetimeScope` GameObject persists across scene loads and registers every service. `BootstrapFlow` calls `InitializeAsync` on each one in registration order, then loads Home. In the editor, `Assets/Editor/PlayFromBootstrap.cs` makes every Play start in Bootstrap.
 - **Services** (`Assets/Scripts/Services`), started in this order:
   1. `ISaveService` → `PlayerPrefsSaveService`: generic `Save<T>` / `Load<T>`, each value as JSON in PlayerPrefs, written immediately. The only class that touches PlayerPrefs.
   2. `IConfigService` → `ScriptableObjectConfigService`: `Economy` is the `EconomyConfig` asset (`Assets/Config/EconomyConfig.asset`), dragged into `BootstrapLifetimeScope` → Economy. `EconomyConfig.FindProblem()` is the one check of the numbers: never throws; Bootstrap logs it as an error at startup and `EconomyConfigAssetTests` checks the shipped asset.
@@ -29,18 +29,27 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **End of a battle**: `LevelView.Finished(BattleOutcome)` (the stand-in Win/Lose buttons for now) → `LevelController` → `BattleRewardGranter` (the only place a battle pays Cash: reward from `IConfigService`, into `IWalletService`) → `BattleResultPanel`, a half-transparent panel inside LevelView over the dimmed battle → Back to menu (`ResetTo<MainMenuView>`). A battle pays once.
 - **Screens are MVC**: `XView` (MonoBehaviour: UI references and events only), `XController` (plain C#, `IStartable` + `IDisposable`, the logic), `XModel` (screen state).
 - **Assemblies**:
-  - `Services` (`Assets/Scripts/Services`): references nothing of ours.
-  - `Game` (`Assets/Scripts/Game`): Bootstrap and HUD. References Services, VContainer, uGUI, TextMeshPro.
-  - `Game.ScreenNavigation` (`Assets/Scripts/ScreenNavigation`): navigator and screens. References Services, VContainer, uGUI.
+  - `Services` owns shared service contracts, implementations, configuration models and battle domain data in `Assets/Scripts/Services`. It references no other project assembly.
+  - `Game.asmdef` at `Assets/Scripts` owns Bootstrap, the Bootstrap and Home scopes, and the Cash HUD. The HUD uses a GUID-based `.asmref` to select Game inside Features.
+  - `Game.ScreenNavigation.asmdef` at `Assets/Scripts/Features` owns navigation, Home screens and Battle. A GUID-based `.asmref` keeps `Composition/ScreenNavigation` in this assembly. Both presentation assemblies reference Services, VContainer, uGUI and TextMeshPro independently.
   - Tests (Editor only): `Services.Tests` (`Assets/Tests/Services`), `Game.ScreenNavigation.Tests` (`Assets/Tests/EditMode`).
-  Services never references Game or Game.ScreenNavigation.
+
+## Folder ownership
+
+Paths below are relative to `Assets/Scripts`.
+
+- `Composition` holds all LifetimeScopes, including the scene scope base. Keep registration and parent wiring here. Launch sequencing belongs in `Bootstrap/BootstrapFlow.cs`.
+- In `Services/<Service>`, put contracts in `Interfaces`. Use `Local` for PlayerPrefs and ScriptableObject adapters and add `Remote` only for an implemented remote source. The wallet uses the save contract, so its logic lives directly in `Services/Wallet`. Shared startup contracts live in `Services/Interfaces`.
+- Economy definitions live in `Services/Config/Models/Economy`. Their authored ScriptableObject asset lives in `Assets/Config`. Shared battle vocabulary such as `BattleOutcome` lives in `Services/Domain/Battle` so both configuration and presentation can consume it.
+- Colocate each screen's MVC files under its feature. `Features/Home` owns the menu screens, shared screen navigation and Cash HUD. `Features/Battle` owns Level, its result panel and reward flow. Folder placement describes responsibility. Scope registrations determine instance lifetime.
+- Move Unity assets and folders with their existing `.meta` files. Preserve GUIDs, serialized type identities and each script's assembly when moving across an assembly boundary.
 
 ## Rules for AI
 - Screens and gameplay code get services through their interfaces by constructor injection. Never call PlayerPrefs outside `PlayerPrefsSaveService`, and never add a static service locator.
 - A new service: interface + class in `Services`, implement `IInitializableService`, add one `Register` line in `BootstrapLifetimeScope` in init order (after the services it uses).
 - Services must never reference Game. If a service needs game data, pass it in.
 - No economy number in a script: add a field to `EconomyConfig` (or reuse `PriceCurve`), set it in the asset, read it through `IConfigService`.
-- A new screen: `XView`, `XController`, `XModel` in `Screens/X`, registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
+- A new screen: `XView`, `XController`, `XModel` in its owning feature folder (for example, `Features/Home/Shop`), registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
 - Don't change Player Settings, the package name, API levels or the Scene List unless asked.
 - Don't edit `.unity` scenes or prefabs as text. Write the code, then list the Editor steps for a person.
 - VContainer replaces a new file named `*LifetimeScope.cs` with an empty template when Unity imports it. After creating one, check its content.
