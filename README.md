@@ -17,7 +17,8 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 - **Bootstrap** (scene 0, no UI) starts the services in order, keeps them alive with DontDestroyOnLoad, then opens **Home** (scene 1).
 - **Services** sit behind interfaces in their own assembly: 1 · `ISaveService` (PlayerPrefs, JSON), 2 · `IConfigService` (the `EconomyConfig` asset: every economy number), 3 · `IWalletService` (the player's Cash, saved through Save). Screens get them by constructor injection (VContainer) and never touch PlayerPrefs.
 - **Home** holds every screen, including the battle: tabs switch with the screen navigator, Settings and Level open on top and close with Back.
-- **Assemblies**: `Game` → `Services`; `Services` references nothing of ours. Details in `AGENTS.md`.
+- **Home scopes.** Home has two children of the persistent Bootstrap scope. `HomeLifetimeScope` wires the Cash HUD to the wallet. `ScreenNavigationLifetimeScope` owns screen navigation, the Level screen and its battle reward flow.
+- **Runtime assemblies.** `Game` contains Bootstrap and the Cash HUD. `Game.ScreenNavigation` contains the navigator and screens. Both depend on `Services`, which has no dependency on either assembly. [Folder and assembly conventions](AGENTS.md#folder-ownership)
 
 ## Milestone 4
 - **Economy sheet:** [Battle Forge — Economy](https://docs.google.com/spreadsheets/d/1F4X58x4EBTdsWn25kLN42NWPBHyPkzjbTYCo3uSB7S0/edit?usp=sharing). A session is 2 battles: 1 win (150 Cash) + 1 loss (30 Cash) = 180 Cash. The Skill tree upgrade costs 100 × 1.5^level. Both checks say Yes; the last upgrade comes after about 63 sessions. Why 1.5: see `DECISIONS.md`.
@@ -36,8 +37,15 @@ https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
 <img src="docs/phone_view.png" width="280"> <img src="docs/ipad_view.png" width="280">
 
 ## Repo map
-| File | What it is |
+
+| Path | What it contains |
 | --- | --- |
+| [Composition](Assets/Scripts/Composition) | VContainer scopes, dependency registrations and parent wiring |
+| [Bootstrap](Assets/Scripts/Bootstrap) | Service startup sequence and transition to Home |
+| [Services](Assets/Scripts/Services) | Save, config and wallet contracts and implementations, economy models and the shared battle outcome |
+| [Home features](Assets/Scripts/Features/Home) | Menu screens, screen navigation and Cash HUD |
+| [Battle feature](Assets/Scripts/Features/Battle) | Level MVC, result panel and reward grant |
+| [Tests](Assets/Tests) | EditMode coverage for services, screen navigation and the battle reward flow |
 | `pitch.md` | One-page pitch of the game |
 | `DECISIONS.md` | Every real decision the team made, and why |
 | `CREDITS.md` | Where every piece of art, the font and the libraries come from |
@@ -45,5 +53,4 @@ https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
 | `AGENTS.md` | Context for AI coding tools: architecture, rules, conventions |
 | `CLAUDE.md` | Points Claude Code to `AGENTS.md` |
 | `docs/architecture.webp` | The architecture diagram above |
-| `docs/simulator-*.png` | Device Simulator screenshots (Milestone 2) |
 | `docs/phone_view.png`, `docs/ipad_view.png` | Device Simulator screenshots (Milestone 2) |

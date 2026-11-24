@@ -2,6 +2,14 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Organize scripts by feature and preserve assembly ownership
+
+Group LifetimeScopes under `Composition` so developers can find dependency registrations in one place. Keep each screen's MVC files together. The Level screen, result panel and reward grant belong in `Features/Battle`, even though the screen runs in Home and its dependencies live in the navigation scope.
+
+Keep shared services and configuration in the `Services` assembly. Both battle presentation and economy configuration consume `BattleOutcome`, so its source lives in `Services/Domain/Battle`.
+
+Two GUID-based assembly references preserve the existing dependency graph across folder boundaries. The Cash HUD under Home compiles into `Game`, and the navigation scope under Composition compiles into `Game.ScreenNavigation`. The refactor preserved namespaces, Unity asset GUIDs and DI lifetimes. [Implementation in 76fabee](https://github.com/edelagziel/unityGameMobile/commit/76fabee)
+
 2026-11-24 — Keep Screen Navigation independent and give Home its own scope
 
 Options: Combine navigation and HUD registrations in one Home container / Keep Screen Navigation independent and broaden the existing HUD scope to cover Home-specific dependencies.
