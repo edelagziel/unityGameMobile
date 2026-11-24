@@ -1,4 +1,3 @@
-using System;
 using Game.Services.Config;
 using NUnit.Framework;
 
@@ -53,10 +52,16 @@ namespace Game.Services.Tests
             Assert.AreEqual(100, curve.PriceAt(-1));
         }
 
+        [Test]
+        public void TheSheetCurveIsValid() => Assert.IsTrue(new PriceCurve(100, 1.5f, 10).IsValid);
+
         [TestCase(0, 1.5f, 10)]
         [TestCase(100, 0.9f, 10)]
         [TestCase(100, 1.5f, 0)]
-        public void WrongNumbersAreRejected(int baseCost, float growth, int maxLevel) =>
-            Assert.Throws<InvalidOperationException>(() => new PriceCurve(baseCost, growth, maxLevel));
+        public void WrongNumbersAreNotValid(int baseCost, float growth, int maxLevel) =>
+            Assert.IsFalse(new PriceCurve(baseCost, growth, maxLevel).IsValid);
+
+        [Test]
+        public void AnEmptyCurveIsNotValid() => Assert.IsFalse(default(PriceCurve).IsValid);
     }
 }
