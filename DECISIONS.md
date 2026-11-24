@@ -2,6 +2,18 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Keep Screen Navigation independent and give Home its own scope
+
+Options: Combine navigation and HUD registrations in one Home container / Keep Screen Navigation independent and broaden the existing HUD scope to cover Home-specific dependencies.
+
+Chose: Keep `BootstrapLifetimeScope` as the parent of two sibling scopes in Home. `ScreenNavigationLifetimeScope` keeps its existing screen registrations and serialized references. `HomeLifetimeScope` replaces `HudLifetimeScope` and registers `CashView` and `CashController`. The HUD receives the global wallet from Bootstrap.
+
+Why: Screen Navigation owns the screens and their history. The HUD needs the wallet and can operate independently of navigation. Level already runs as a screen in Home, with `LevelModel`, `LevelController`, and `BattleRewardGranter` registered in Screen Navigation. Introduce a `BattleLifetimeScope` only when a concrete dependency needs to be created and disposed for each battle.
+
+AI: Codex verified the two containers against the existing registrations and checked the shared wallet and Level navigation in Play Mode.
+
+Who: Eden
+
 2026-11-24 — Economy: a win pays 150, a loss 30, upgrades cost 100 × 1.5 per level
 
 Options: Upgrade price growth 1.3 / 1.5 / 2.0 (base cost 100, max level 10, 180 Cash per session)
