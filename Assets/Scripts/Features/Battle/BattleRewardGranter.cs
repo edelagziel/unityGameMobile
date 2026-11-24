@@ -22,7 +22,13 @@ namespace Game.ScreenNavigation
         /// <summary>Pays the reward and returns how much was paid.</summary>
         public int Grant(BattleOutcome outcome)
         {
-            var reward = config.Economy.BattleRewards.RewardFor(outcome);
+            var rewards = config.Economy.BattleRewards;
+            var reward = outcome switch
+            {
+                BattleOutcome.Win => rewards.Win,
+                BattleOutcome.Lose => rewards.Lose,
+                _ => 0
+            };
             if (reward > 0) wallet.Add(reward); // the wallet takes only positive amounts; a loss may pay 0
             return reward;
         }

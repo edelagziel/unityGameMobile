@@ -1,3 +1,4 @@
+using System.Threading;
 using Game.Services.Config;
 using NUnit.Framework;
 using UnityEditor;
@@ -26,21 +27,9 @@ namespace Game.Services.Tests
             var root = AssetDatabase.LoadAssetAtPath<GameConfig>(RootPath);
             Assert.IsNotNull(root);
             Assert.AreSame(economy, root.Economy);
-            Assert.IsNull(economy.FindProblem(), economy.FindProblem());
-        }
-
-        [Test]
-        public void AnEmptyConfigReportsAProblemInsteadOfThrowing()
-        {
-            var economy = EconomyConfig.Create(default, default);
-            try
-            {
-                Assert.IsNotNull(economy.FindProblem());
-            }
-            finally
-            {
-                UnityEngine.Object.DestroyImmediate(economy);
-            }
+            var config = new ScriptableObjectConfigService(root);
+            config.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult();
+            UnityEngine.TestTools.LogAssert.NoUnexpectedReceived();
         }
     }
 }

@@ -4,6 +4,5 @@ namespace Game.Services.Config
     {
         BattleRewards BattleRewards { get; }
         PriceCurve Upgrade { get; }
-        int UpgradeCost(int level);
     }
 }

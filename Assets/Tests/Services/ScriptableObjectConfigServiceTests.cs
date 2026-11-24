@@ -43,8 +43,8 @@ namespace Game.Services.Tests
             config.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult();
 
             Assert.AreSame(economy, config.Economy);
-            Assert.AreEqual(150, config.Economy.BattleRewards.RewardFor(BattleOutcome.Win));
-            Assert.AreEqual(150, config.Economy.UpgradeCost(1));
+            Assert.AreEqual(150, config.Economy.BattleRewards.Win);
+            Assert.AreEqual(1.5f, config.Economy.Upgrade.Growth);
         }
 
         [Test]
@@ -55,17 +55,24 @@ namespace Game.Services.Tests
         public void MissingEconomyIsReportedAtStartup() =>
             Assert.Throws<ArgumentException>(() => new ScriptableObjectConfigService(root));
 
-        [Test]
-        public void AWrongNumberDoesNotStopTheGame()
+        [TestCase(0, 0, 0, 0f, 0, "Battle rewards")]
+        [TestCase(0, 0, 100, 1.5f, 10, "Battle rewards")]
+        [TestCase(150, -1, 100, 1.5f, 10, "Battle rewards")]
+        [TestCase(30, 150, 100, 1.5f, 10, "Battle rewards")]
+        [TestCase(150, 30, 0, 1.5f, 10, "Upgrade")]
+        [TestCase(150, 30, 100, 0.9f, 10, "Upgrade")]
+        [TestCase(150, 30, 100, float.NaN, 10, "Upgrade")]
+        [TestCase(150, 30, 100, 1.5f, 0, "Upgrade")]
+        public void InvalidNumbersAreLoggedAndStartupContinues(
+            int win, int lose, int baseCost, float growth, int maxLevel, string problem)
         {
-            economy = ScriptableObject.CreateInstance<EconomyConfig>(); // a new asset nobody filled in
+            economy = EconomyConfig.Create(new BattleRewards(win, lose), new PriceCurve(baseCost, growth, maxLevel));
             AssignEconomy();
             var config = new ScriptableObjectConfigService(root);
 
-            LogAssert.Expect(LogType.Error, new Regex("^EconomyConfig: Battle rewards"));
+            LogAssert.Expect(LogType.Error, new Regex($"^EconomyConfig: {problem}"));
             config.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.IsNotNull(economy.FindProblem());
             Assert.AreSame(economy, config.Economy);
         }
     }

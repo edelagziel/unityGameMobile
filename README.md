@@ -22,7 +22,7 @@ Take 4 cards into a real-time lane battle, craft more on a 3×3 table (a rare So
 
 ## Milestone 4
 - **Economy sheet:** [Battle Forge — Economy](https://docs.google.com/spreadsheets/d/1F4X58x4EBTdsWn25kLN42NWPBHyPkzjbTYCo3uSB7S0/edit?usp=sharing). A session is 2 battles: 1 win (150 Cash) + 1 loss (30 Cash) = 180 Cash. The Skill tree upgrade costs 100 × 1.5^level. Both checks say Yes; the last upgrade comes after about 63 sessions. Why 1.5: see `DECISIONS.md`.
-- **In the game**, Bootstrap references `GameConfig.asset`. Its Economy field points to `EconomyConfig.asset`, where designers edit the rewards and price curve. The battle reward code reads `config.Economy.BattleRewards.RewardFor(outcome)`. [Configuration conventions](AGENTS.md#game-configuration)
+- **In the game**, Bootstrap references `GameConfig.asset`. Its Economy field points to `EconomyConfig.asset`, where designers edit the rewards and price curve. `BattleRewardGranter` reads `config.Economy.BattleRewards` and selects the payout for the outcome. [Configuration conventions](AGENTS.md#game-configuration)
 - **Loop:** Battle → Win / Lose → the result over the dimmed battle (+150 / +30) → Back to menu, with the Cash added and saved.
 
 ## Milestone 2

@@ -24,16 +24,5 @@ namespace Game.Services.Config
 
         public int Win => win;
         public int Lose => lose;
-
-        /// <summary>A win pays at least 1; a loss pays from 0 up to a win.</summary>
-        public bool IsValid => win >= 1 && lose >= 0 && lose <= win;
-
-        /// <summary>The reward for this outcome. An outcome without a reward pays nothing instead of stopping the game.</summary>
-        public int RewardFor(BattleOutcome outcome) => outcome switch
-        {
-            BattleOutcome.Win => win,
-            BattleOutcome.Lose => lose,
-            _ => 0
-        };
     }
 }
