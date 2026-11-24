@@ -37,11 +37,10 @@ namespace Game.Services.Config
 
         public bool IsMaxed(int level) => level >= maxLevel;
 
-        /// <summary>Price of the next purchase when <paramref name="level"/> were already bought.</summary>
+        /// <summary>Price of the next purchase. Negative input is treated as level zero rather than throwing during gameplay.</summary>
         public int PriceAt(int level)
         {
-            if (level < 0)
-                throw new ArgumentOutOfRangeException(nameof(level), level, "Level can't be negative.");
+            if (level < 0) level = 0;
 
             // double, so the sheet and the game round the same way (338, not 337).
             var price = baseCost * Math.Pow(growth, level);
