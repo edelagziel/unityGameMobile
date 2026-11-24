@@ -1,4 +1,3 @@
-using System;
 using Game.Services.Config;
 using Game.Services.Save;
 using Game.Services.Wallet;
@@ -43,9 +42,6 @@ namespace Game.Bootstrap
 
         protected override void Configure(IContainerBuilder builder)
         {
-            if (economy == null)
-                throw new InvalidOperationException("Drag Assets/Config/EconomyConfig into BootstrapLifetimeScope → Economy.");
-
             // Services, in init order: BootstrapFlow starts them from top to bottom.
             builder.Register<PlayerPrefsSaveService>(Lifetime.Singleton).AsImplementedInterfaces(); // 1 · Save
             builder.Register<ScriptableObjectConfigService>(Lifetime.Singleton)                     // 2 · Config: the asset above

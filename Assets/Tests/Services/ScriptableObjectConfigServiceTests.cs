@@ -32,17 +32,28 @@ namespace Game.Services.Tests
         }
 
         [Test]
-        public void AMissingAssetStopsBootstrapWithAClearError() =>
+        public void AMissingAssetIsReportedAtStartup() =>
             Assert.Throws<ArgumentNullException>(() => new ScriptableObjectConfigService(null));
 
         [Test]
-        public void AnEmptyAssetStopsBootstrapWithAClearError()
+        public void AWrongNumberDoesNotStopTheGame()
         {
             economy = ScriptableObject.CreateInstance<EconomyConfig>(); // a new asset nobody filled in
             var config = new ScriptableObjectConfigService(economy);
 
-            Assert.Throws<InvalidOperationException>(() =>
-                config.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult());
+            // In the game this logs a red error on purpose; keep it out of the Console while testing.
+            Debug.unityLogger.logEnabled = false;
+            try
+            {
+                Assert.DoesNotThrow(() => config.InitializeAsync(CancellationToken.None).GetAwaiter().GetResult());
+            }
+            finally
+            {
+                Debug.unityLogger.logEnabled = true;
+            }
+
+            Assert.IsNotNull(economy.FindProblem());
+            Assert.AreSame(economy, config.Economy);
         }
     }
 }

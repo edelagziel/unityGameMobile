@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Services.Config
 {
@@ -20,10 +21,15 @@ namespace Game.Services.Config
 
         public EconomyConfig Economy { get; }
 
-        /// <summary>Checks the numbers once at startup, so a wrong asset stops Bootstrap with a clear message.</summary>
+        /// <summary>
+        /// Reports a wrong number in red in the Console, but lets the game run.
+        /// A remote config will also fetch the server values here.
+        /// </summary>
         public Task InitializeAsync(CancellationToken cancellation)
         {
-            Economy.Validate();
+            var problem = Economy.FindProblem();
+            if (problem != null)
+                Debug.LogError($"EconomyConfig: {problem} Fix it in Assets/Config/EconomyConfig.", Economy);
             return Task.CompletedTask;
         }
     }
