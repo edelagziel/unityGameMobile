@@ -2,6 +2,10 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Restore the Screen Navigation module
+
+Group the seven screens and shared navigation under `ScreenNavigation`. Keep the battle result panel and reward granter beside Level. The navigation scope stays under `Composition` and the Cash HUD stays under Home.
+
 2026-11-24 — Give Bootstrap one game configuration asset
 
 Bootstrap supplies `GameConfig.asset` to the configuration service. The root links to the existing economy asset, so designers still edit rewards and prices in one place. Adding a domain extends the root and the typed service API while keeping Bootstrap's Inspector wiring stable.

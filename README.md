@@ -43,8 +43,8 @@ https://github.com/user-attachments/assets/0fc4849c-0829-4a94-8acf-947168882d1f
 | [Composition](Assets/Scripts/Composition) | VContainer scopes, dependency registrations and parent wiring |
 | [Bootstrap](Assets/Scripts/Bootstrap) | Service startup sequence and transition to Home |
 | [Services](Assets/Scripts/Services) | Save, config and wallet contracts and implementations, economy models and the shared battle outcome |
-| [Home features](Assets/Scripts/Features/Home) | Menu screens, screen navigation and Cash HUD |
-| [Battle feature](Assets/Scripts/Features/Battle) | Level MVC, result panel and reward grant |
+| [Screen Navigation](Assets/Scripts/ScreenNavigation) | Shared navigation and per-screen MVC folders, including Level and its battle result and reward flow |
+| [Cash HUD](Assets/Scripts/Features/Home/CashHud) | Home cash display and controller |
 | [Tests](Assets/Tests) | EditMode coverage for services, screen navigation and the battle reward flow |
 | `pitch.md` | One-page pitch of the game |
 | `DECISIONS.md` | Every real decision the team made, and why |

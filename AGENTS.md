@@ -31,7 +31,7 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
 - **Assemblies**:
   - `Services` owns shared service contracts, implementations, configuration models and battle domain data in `Assets/Scripts/Services`. It references no other project assembly.
   - `Game.asmdef` at `Assets/Scripts` owns Bootstrap, the Bootstrap and Home scopes, and the Cash HUD. The HUD uses a GUID-based `.asmref` to select Game inside Features.
-  - `Game.ScreenNavigation.asmdef` at `Assets/Scripts/Features` owns navigation, Home screens and Battle. A GUID-based `.asmref` keeps `Composition/ScreenNavigation` in this assembly. Both presentation assemblies reference Services, VContainer, uGUI and TextMeshPro independently.
+  - `Game.ScreenNavigation.asmdef` at `Assets/Scripts/ScreenNavigation` owns navigation, Home screens and Battle. A GUID-based `.asmref` keeps `Composition/ScreenNavigation` in this assembly. Both presentation assemblies reference Services, VContainer, uGUI and TextMeshPro independently.
   - Tests (Editor only): `Services.Tests` (`Assets/Tests/Services`), `Game.ScreenNavigation.Tests` (`Assets/Tests/EditMode`).
 
 ## Game configuration
@@ -48,7 +48,7 @@ Paths below are relative to `Assets/Scripts`.
 - `Composition` holds all LifetimeScopes, including the scene scope base. Keep registration and parent wiring here. Launch sequencing belongs in `Bootstrap/BootstrapFlow.cs`.
 - In `Services/<Service>`, put contracts in `Interfaces`. Use `Local` for PlayerPrefs and ScriptableObject adapters and add `Remote` only for an implemented remote source. The wallet uses the save contract, so its logic lives directly in `Services/Wallet`. Shared startup contracts live in `Services/Interfaces`.
 - Economy definitions live in `Services/Config/Models/Economy`. Their authored ScriptableObject asset lives in `Assets/Config`. Shared battle vocabulary such as `BattleOutcome` lives in `Services/Domain/Battle` so both configuration and presentation can consume it.
-- Colocate each screen's MVC files under its feature. `Features/Home` owns the menu screens, shared screen navigation and Cash HUD. `Features/Battle` owns Level, its result panel and reward flow. Folder placement describes responsibility. Scope registrations determine instance lifetime.
+- Keep shared navigation under `ScreenNavigation` and each screen's MVC files under `ScreenNavigation/Screens/<Screen>`. The Level folder also owns the result panel and reward grant. The independent Cash HUD lives in `Features/Home/CashHud`. Folder placement describes responsibility. Scope registrations determine instance lifetime.
 - Move Unity assets and folders with their existing `.meta` files. Preserve GUIDs, serialized type identities and each script's assembly when moving across an assembly boundary.
 
 ## Rules for AI
@@ -56,7 +56,7 @@ Paths below are relative to `Assets/Scripts`.
 - A new service: interface + class in `Services`, implement `IInitializableService`, add one `Register` line in `BootstrapLifetimeScope` in init order (after the services it uses).
 - Services must never reference Game. If a service needs game data, pass it in.
 - No economy number in a script: add a field to `EconomyConfig` (or reuse `PriceCurve`), set it in the asset, read it through `IConfigService`.
-- A new screen: `XView`, `XController`, `XModel` in its owning feature folder (for example, `Features/Home/Shop`), registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
+- A new screen: `XView`, `XController`, `XModel` in its screen folder (for example, `ScreenNavigation/Screens/Shop`), registered in `ScreenNavigationLifetimeScope` and added to its Screens list.
 - Don't change Player Settings, the package name, API levels or the Scene List unless asked.
 - Don't edit `.unity` scenes or prefabs as text. Write the code, then list the Editor steps for a person.
 - VContainer replaces a new file named `*LifetimeScope.cs` with an empty template when Unity imports it. After creating one, check its content.
