@@ -2,6 +2,18 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-24 — Economy: a win pays 150, a loss 30, upgrades cost 100 × 1.5 per level
+
+Options: Upgrade price growth 1.3 / 1.5 / 2.0 (base cost 100, max level 10, 180 Cash per session)
+
+Chose: A win pays 150 Cash and a loss 30. The Skill tree upgrade costs 100 × 1.5^level (level = upgrades already bought), up to level 10. The numbers live in `Assets/Config/EconomyConfig.asset` and in our economy sheet, linked in the README.
+
+Why: A session is 2 battles, and the sheet counts it as 1 win and 1 loss (180 Cash) on purpose: if the economy works at a 50% win rate, a stronger player only gets there faster. The first upgrade costs less than one win, so a new player buys it in the first session (0.6 sessions). With 1.5, upgrades 2–4 come every 0.8–1.9 sessions and the last one after about 63 sessions: quick wins first, then a long goal and a reason to come back. With 1.3 all 10 upgrades are bought in about 24 sessions and Cash soon has nothing left to buy; with 2.0 upgrade 4 alone takes 4.4 sessions, a wall, and the sheet's second check fails. A loss pays a fifth of a win, so a bad session still moves the meta (as in the pitch) while winning stays worth five times more.
+
+AI: Claude computed the curve for growth 1.3, 1.5 and 2.0 and proposed counting a session as one win and one loss. We filled in the sheet ourselves (both checks Yes) and checked the game: Win pays +150 from the config.
+
+Who: Alan (economy sheet and numbers); Eden (pending confirmation)
+
 2026-11-21 — Package name com.edenalan.battleforge and minimum API 29 (decided 2026-11-13)
 
 Options: Unity default com.DefaultCompany.unityGameMobile / com.edenalan.battleforge; minimum API 23 (Unity default) / 26 / 29
