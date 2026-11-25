@@ -26,7 +26,7 @@ Battle Forge is a portrait Android card battler for one-thumb play. The design c
 
 **Playable prototype.** From Home, tap **Battle**, then choose **Win** or **Lose** in the level. These buttons simulate the battle outcome. The result panel displays the payout once. Tap **Back to menu** to see the updated Cash balance on Home. The wallet saves each change through the save service, so Cash carries over when the game restarts.
 
-**Economy configuration.** Bootstrap loads `GameConfig.asset`. The battle reads its rewards through `IConfigService.Economy`: 150 Cash for a win and 30 for a loss. Designers can edit both values and the upgrade curve in [EconomyConfig.asset](Assets/Config/EconomyConfig.asset).
+**Economy configuration.** Bootstrap loads `GameConfig.asset`. The battle reads its rewards through `IConfigService.Economy`: 150 Cash for a win and 30 for a loss. Designers can edit both values and the upgrade curve in [EconomyConfig.asset](Assets/Config/EconomyConfig.asset). This is the slides' `Services.Config.Economy`: here `IConfigService` is injected through the constructor by VContainer instead of a static class.
 
 **Skill Tree purchases.** From a fresh balance, win a battle for 150 Cash, open Global Training and buy Army Drills level 1 for 100 Cash. The HUD shows 50 Cash. After restart, the wallet restores the balance and the purchased level. Use the tree title to switch to Swordsman or Archer. Each level uses its authored price or the shared economy curve. [Skill Tree guide](docs/SKILL_TREE.md)
 
