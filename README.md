@@ -30,6 +30,8 @@ Battle Forge is a portrait Android card battler for one-thumb play. The design c
 
 **Skill Tree purchases.** From a fresh balance, win a battle for 150 Cash, open Global Training and buy Army Drills level 1 for 100 Cash. The HUD shows 50 Cash. After restart, the wallet restores the balance and the purchased level. Use the tree title to switch to Swordsman or Archer. Each level uses its authored price or the shared economy curve. [Skill Tree guide](docs/SKILL_TREE.md)
 
+**Art.** Home and the battle use the team's own art: a coin icon next to Cash in the HUD, the Win and Lose buttons, Back to menu on the result panel and the application icon. Sources and tools are in [CREDITS.md](CREDITS.md).
+
 **Economy sheet.** The team models one win and one loss per session, for 180 Cash. Both pacing checks read **Yes**, and the sheet projects 63 sessions to afford all ten upgrades. [Team Economy Sheet](https://docs.google.com/spreadsheets/d/1F4X58x4EBTdsWn25kLN42NWPBHyPkzjbTYCo3uSB7S0/edit?usp=sharing) · [Economy decisions](DECISIONS.md)
 
 ## Milestone 2
