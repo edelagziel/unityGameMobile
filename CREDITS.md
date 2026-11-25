@@ -1,17 +1,20 @@
 # Credits
 
-All art in Battle Forge was made by our team with AI image tools and fixed by hand.
-No third-party art packs are used.
+## Team artwork
 
-## Art (Assets/imges)
-| Files | What | Made by | Tools |
-| --- | --- | --- | --- |
-| HomeScreen, GameModeScreen, Settings, shop, collectionScreen, craftingScreen | Concept screens: a style reference only, not shown in the game | Eden | ChatGPT (image generation) |
-| bg, bg_battle, vignette_edges | Home and battle backgrounds, battle vignette | Alan | Gemini (generated in the style of the concept screens), MediBang Paint (hand fixes), Photoroom (background removal), iLoveIMG (resize) |
-| btn_battle, btn_settings, btn_back, btn_bag, btn_book, btn_chest, btn_sword, btn_tree | Buttons and tab icons | Alan | the same tools |
+The team created the artwork in [Assets/imges](Assets/imges) using AI image tools and manual edits. The repository records the following attributions. It lists no separate redistribution license for the team artwork.
 
-## Fonts
-- Liberation Sans (the TextMesh Pro default font), SIL Open Font License 1.1.
+| Files | Use | Creator and tools |
+| --- | --- | --- |
+| `bg.jpg`, `bg_battle.jpg`, `vignette_edges.png` | Home background, battle background and battle vignette | Alan Zirkiev. Gemini for generation, MediBang Paint for corrections, Photoroom for background removal and iLoveIMG for resizing. |
+| `btn_battle`, `btn_settings`, `btn_back`, `btn_bag`, `btn_book`, `btn_chest`, `btn_sword`, `btn_tree` (PNG) | Action buttons and navigation icons referenced by the Home scene | Alan Zirkiev, using the same art workflow. |
+| `HomeScreen`, `GameModeScreen`, `Settings`, `shop`, `collectionScreen`, `craftingScreen` (PNG) | Concept screens and style references | Eden Lagziel, using ChatGPT image generation. |
 
-## Code libraries
-- VContainer 1.19.0 (MIT License): dependency injection.
+**Coin icon.** The Cash HUD displays the balance as text. The scene has no separate coin sprite assigned to the HUD.
+
+**Application icon.** The default and Android launcher icon slots are empty in this branch. There is no assigned team application icon to credit.
+
+## Font and library
+
+- Liberation Sans, distributed with TextMesh Pro under the SIL Open Font License 1.1. [Bundled copyright and license](<Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt>)
+- VContainer 1.19.0, the dependency injection library, is distributed under the MIT License.

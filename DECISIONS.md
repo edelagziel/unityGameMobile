@@ -2,6 +2,10 @@ Battle Forge — Decisions Log
 
 Record real design and technical decisions, with the newest entries first.
 
+2026-11-25 — Milestone 4: reward a loss while keeping a win worth five times as much
+
+A win awards 150 Cash and a loss awards 30. Paying for both outcomes lets a player progress after a defeat. A win alone covers the first 100-Cash upgrade in the economy model. A player starting at zero would need four losses to reach the same price. The team uses one win and one loss as its two-battle pacing benchmark, giving 180 Cash per session. [Economy configuration](Assets/Config/EconomyConfig.asset) · [Team Economy Sheet](https://docs.google.com/spreadsheets/d/1F4X58x4EBTdsWn25kLN42NWPBHyPkzjbTYCo3uSB7S0/edit?usp=sharing)
+
 2026-11-24 — Restore the Screen Navigation module
 
 Group the seven screens and shared navigation under `ScreenNavigation`. Keep the battle result panel and reward granter beside Level. The navigation scope stays under `Composition` and the Cash HUD stays under Home.
