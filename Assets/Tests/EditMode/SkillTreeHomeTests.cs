@@ -115,7 +115,6 @@ namespace Game.ScreenNavigation.Tests
                 buy.onClick.Invoke();
                 buy.onClick.Invoke();
                 Assert.AreEqual(50, wallet.Cash);
-                Assert.IsTrue(view.GetComponentsInChildren<TMP_Text>().Any(t => t.text.Contains("Cash  50")));
                 Assert.AreEqual(1, skills.Inspect(new SkillContext("swordsman", "type.swordsman"), "damage").Current);
                 var swordNode = FindButton(view, "Sword Training");
                 Assert.IsTrue(controller.Open(new SkillContext("swordsman", "card.2")));

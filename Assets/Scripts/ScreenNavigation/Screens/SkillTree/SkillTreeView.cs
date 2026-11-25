@@ -14,8 +14,6 @@ namespace Game.ScreenNavigation
         private SkillDetailsPanel details;
         private MapPanZoomController map;
         private TextMeshProUGUI treeLabel;
-        private TextMeshProUGUI balance;
-        private int? displayedCash;
         private SkillTreeDefinition displayedTree;
         private int displayedRevision;
         private SkillContext context;
@@ -40,11 +38,6 @@ namespace Game.ScreenNavigation
             context = owner;
             offers = currentOffers;
             graph.ShowOffers(offers);
-            if (displayedCash != cash)
-            {
-                balance.text = $"Cash  {cash}";
-                displayedCash = cash;
-            }
             ShowSelection(selection, feedback);
         }
 
@@ -69,7 +62,6 @@ namespace Game.ScreenNavigation
             Button(header, "", Slate, () => { if (!map.BlocksClick) CycleRequested?.Invoke(); }, out treeLabel);
             var center = Rect(panel, "Center", new Vector2(.5f, .86f), new Vector2(.71f, .916f));
             Button(center, "Center", Slate, () => { if (!map.BlocksClick) map.Focus(); }, out _);
-            balance = Label(Rect(panel, "Balance", new Vector2(.72f, .86f), new Vector2(.99f, .916f)), "", 36);
             details = new SkillDetailsPanel(panel, (owner, id, target) =>
             {
                 if (!map.BlocksClick) PurchaseRequested?.Invoke(owner, id, target);
