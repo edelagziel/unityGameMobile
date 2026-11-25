@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d1219ca852438aab3b357125e114b1, type: 3}
+  m_Name: swordsman
+  m_EditorClassIdentifier: Services::Game.Services.Skills.SkillTreeDefinition
+  id: swordsman
+  title: Swordsman
+  skills:
+  - id: health
+    title: Endurance
+    description: Train to withstand heavier blows.
+    icon: {fileID: 0}
+    category: Defense
+    requirements: []
+    levels:
+    - description: Improve unit health
+      useEconomyCurve: 0
+      fixedCash: 40
+      requirements: []
+      effects:
+      - rid: 1
+    - description: Improve unit health
+      useEconomyCurve: 0
+      fixedCash: 65
+      requirements: []
+      effects:
+      - rid: 2
+  - id: damage
+    title: Sword Training
+    description: Improve damage on each hit.
+    icon: {fileID: 0}
+    category: Offense
+    requirements: []
+    levels:
+    - description: Improve unit damage
+      useEconomyCurve: 0
+      fixedCash: 50
+      requirements: []
+      effects:
+      - rid: 3
+    - description: Improve unit damage
+      useEconomyCurve: 0
+      fixedCash: 80
+      requirements:
+      - skillId: health
+        requiredLevel: 1
+      effects:
+      - rid: 4
+  - id: veteran
+    title: Veteran Guard
+    description: Combine strength and endurance to master parrying.
+    icon: {fileID: 0}
+    category: Mastery
+    requirements:
+    - skillId: health
+      requiredLevel: 2
+    - skillId: damage
+      requiredLevel: 1
+    levels:
+    - description: Learn ability parry
+      useEconomyCurve: 0
+      fixedCash: 110
+      requirements: []
+      effects:
+      - rid: 5
+      - rid: 6
+    - description: Improve unit armor
+      useEconomyCurve: 0
+      fixedCash: 145
+      requirements: []
+      effects:
+      - rid: 7
+  references:
+    version: 2
+    RefIds:
+    - rid: 1
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 10
+        stat: 2
+    - rid: 2
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 15
+        stat: 2
+    - rid: 3
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 2
+        stat: 3
+    - rid: 4
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 4
+        stat: 3
+    - rid: 5
+      type: {class: AbilityUnlockEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        abilityId: ability.parry
+    - rid: 6
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        stat: 5
+    - rid: 7
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 3
+        stat: 5

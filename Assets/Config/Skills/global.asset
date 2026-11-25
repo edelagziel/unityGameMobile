@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d1219ca852438aab3b357125e114b1, type: 3}
+  m_Name: global
+  m_EditorClassIdentifier: Services::Game.Services.Skills.SkillTreeDefinition
+  id: global
+  title: Global Training
+  skills:
+  - id: drill
+    title: Army Drills
+    description: Strengthen the army for longer battles.
+    icon: {fileID: 0}
+    category: Army
+    requirements: []
+    levels:
+    - description: Improve army health
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 1
+    - description: Improve army health
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 2
+  - id: trade
+    title: Trade Routes
+    description: Increase income from trade.
+    icon: {fileID: 0}
+    category: Economy
+    requirements: []
+    levels:
+    - description: Improve income rate
+      useEconomyCurve: 0
+      fixedCash: 50
+      requirements: []
+      effects:
+      - rid: 3
+  - id: forge
+    title: Field Forge
+    description: Shorten crafting time in battle.
+    icon: {fileID: 0}
+    category: Crafting
+    requirements:
+    - skillId: drill
+      requiredLevel: 1
+    levels:
+    - description: Improve craft speed
+      useEconomyCurve: 0
+      fixedCash: 75
+      requirements: []
+      effects:
+      - rid: 4
+  - id: reserve
+    title: Reserve Cards
+    description: Gain access to reserve cards.
+    icon: {fileID: 0}
+    category: Cards
+    requirements:
+    - skillId: trade
+      requiredLevel: 1
+    - skillId: forge
+      requiredLevel: 1
+    levels:
+    - description: Unlock cards reserve
+      useEconomyCurve: 0
+      fixedCash: 125
+      requirements: []
+      effects:
+      - rid: 5
+  - id: formation
+    title: Shield Formation
+    description: Sample army upgrade for the global map.
+    icon: {fileID: 0}
+    category: Army
+    requirements:
+    - skillId: drill
+      requiredLevel: 1
+    levels:
+    - description: Train a shield wall
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 6
+  - id: vanguard
+    title: Vanguard
+    description: Sample army upgrade for the global map.
+    icon: {fileID: 0}
+    category: Army
+    requirements:
+    - skillId: formation
+      requiredLevel: 1
+    levels:
+    - description: Lead with a vanguard
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 7
+  - id: market
+    title: Market Network
+    description: Sample economy upgrade for the global map.
+    icon: {fileID: 0}
+    category: Economy
+    requirements:
+    - skillId: trade
+      requiredLevel: 1
+    levels:
+    - description: Expand the trade network
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 8
+  - id: workshop
+    title: Workshop
+    description: Sample crafting upgrade for the global map.
+    icon: {fileID: 0}
+    category: Crafting
+    requirements:
+    - skillId: forge
+      requiredLevel: 1
+    levels:
+    - description: Open a field workshop
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 9
+  - id: deck
+    title: Reserve Deck
+    description: Sample cards upgrade for the global map.
+    icon: {fileID: 0}
+    category: Cards
+    requirements:
+    - skillId: reserve
+      requiredLevel: 1
+    levels:
+    - description: Organize reserve cards
+      useEconomyCurve: 1
+      fixedCash: 0
+      requirements: []
+      effects:
+      - rid: 10
+  references:
+    version: 2
+    RefIds:
+    - rid: 1
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 5
+        stat: 1
+    - rid: 2
+      type: {class: StatModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 8
+        stat: 1
+    - rid: 3
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: income.rate
+    - rid: 4
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 2
+        ruleId: craft.speed
+    - rid: 5
+      type: {class: ContentUnlockEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        contentType: 0
+        contentId: cards.reserve
+    - rid: 6
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: sample.formation
+    - rid: 7
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: sample.vanguard
+    - rid: 8
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: sample.market
+    - rid: 9
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: sample.workshop
+    - rid: 10
+      type: {class: GameplayModifierEffect, ns: Game.Services.Skills, asm: Services}
+      data:
+        amount: 1
+        ruleId: sample.deck

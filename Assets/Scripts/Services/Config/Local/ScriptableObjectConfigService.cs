@@ -19,6 +19,7 @@ namespace Game.Services.Config
         }
 
         public IEconomyConfig Economy => defaults.Economy;
+        public System.Collections.Generic.IReadOnlyList<Game.Services.Skills.SkillTreeDefinition> SkillTrees  => defaults.SkillTrees;
 
         private static string FindProblem(IEconomyConfig economy)
         {

@@ -1,0 +1,6 @@
+{
+  "name": "Game.SkillMap.PlayModeTests",
+  "references": ["Game.ScreenNavigation", "Services", "UnityEngine.UI", "Unity.TextMeshPro"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

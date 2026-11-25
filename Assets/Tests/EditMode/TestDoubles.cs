@@ -71,6 +71,9 @@ namespace Game.ScreenNavigation.Tests
         public FakeConfig(int win, int lose) =>
             Economy = EconomyConfig.Create(new BattleRewards(win, lose), new PriceCurve(baseCost: 100, growth: 1.5f, maxLevel: 10));
 
+        public System.Collections.Generic.IReadOnlyList<Game.Services.Skills.SkillTreeDefinition> SkillTrees =>
+            Array.Empty<Game.Services.Skills.SkillTreeDefinition>();
+
         private EconomyConfig Economy { get; }
         IEconomyConfig IConfigService.Economy => Economy;
 

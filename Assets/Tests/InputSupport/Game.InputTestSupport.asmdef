@@ -1,0 +1,6 @@
+{
+  "name": "Game.InputTestSupport",
+  "references": ["UnityEngine.UI"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

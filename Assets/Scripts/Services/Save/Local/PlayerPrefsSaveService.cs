@@ -38,8 +38,21 @@ namespace Game.Services.Save
 
         public void Save<T>(string key, T value)
         {
-            PlayerPrefs.SetString(StorageKey(key), JsonUtility.ToJson(new Box<T> { value = value }));
-            PlayerPrefs.Save(); // Write now: the phone can close the app at any moment.
+            var storageKey = StorageKey(key);
+            bool existed = PlayerPrefs.HasKey(storageKey);
+            string previous = existed ? PlayerPrefs.GetString(storageKey) : null;
+            try
+            {
+                PlayerPrefs.SetString(storageKey, JsonUtility.ToJson(new Box<T> { value = value }));
+                PlayerPrefs.Save();
+            }
+            catch
+            {
+                // A later flush must not publish a candidate rejected by this save.
+                if (existed) PlayerPrefs.SetString(storageKey, previous);
+                else PlayerPrefs.DeleteKey(storageKey);
+                throw;
+            }
         }
 
         public void Delete(string key)

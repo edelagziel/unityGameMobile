@@ -12,6 +12,7 @@ namespace Game.ScreenNavigation.Tests
     public sealed class TabBarNavigationTests
     {
         private GameObject root;
+        private FakeConfig skillConfig;
         private Button[] buttons;
         private GameObject[] highlights;
         private Button settingsButton;
@@ -63,12 +64,13 @@ namespace Game.ScreenNavigation.Tests
             var screenNavigator = new ScreenNavigator(new ScreenNavigationHistory(), registry);
             navigator = new RecordingNavigator(screenNavigator);
             shopController = new ShopController(shop, new ShopModel(), navigator);
+            skillConfig = new FakeConfig(150, 30);
             controllers = new IStartable[]
             {
                 new MainMenuController(mainMenu, new MainMenuModel(), navigator),
                 shopController,
                 new InventoryController(inventory, new InventoryModel(), navigator),
-                new SkillTreeController(skillTree, new SkillTreeModel(), navigator),
+                new SkillTreeController(skillTree, new SkillTreeModel(new Game.Services.Skills.SkillService(skillConfig, null)), navigator, new FakeWallet()),
                 new RecipesController(recipes, new RecipesModel(), navigator)
             };
             root.SetActive(true);
@@ -84,6 +86,7 @@ namespace Game.ScreenNavigation.Tests
             if (controllers != null)
                 foreach (var controller in controllers) (controller as IDisposable)?.Dispose();
             if (root != null) UnityEngine.Object.DestroyImmediate(root);
+            skillConfig?.Dispose();
         }
 
         [Test]

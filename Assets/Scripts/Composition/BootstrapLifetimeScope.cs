@@ -49,6 +49,7 @@ namespace Game.Bootstrap
                 .AsImplementedInterfaces();
             builder.Register<WalletService>(Lifetime.Singleton).AsImplementedInterfaces();          // 3 · Wallet: loads Cash from Save
 
+            builder.Register<Game.Services.Skills.SkillService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<BootstrapFlow>().WithParameter("firstScene", firstScene);
         }
     }

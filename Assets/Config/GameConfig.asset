@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: Services::Game.Services.Config.GameConfig
   economy: {fileID: 11400000, guid: bcc596daa6f40da4ebf6985002035b52, type: 2}
+  skillTrees:
+  - {fileID: 11400000, guid: 603e9f053fc84382ae75421eb1043310, type: 2}
+  - {fileID: 11400000, guid: 603e9f053fc84382ae75421eb1043311, type: 2}
+  - {fileID: 11400000, guid: 603e9f053fc84382ae75421eb1043312, type: 2}

@@ -3,6 +3,7 @@
   "rootNamespace": "Game.ScreenNavigation.Tests",
   "references": [
     "Game.ScreenNavigation",
+    "Game.InputTestSupport",
     "Services",
     "UnityEngine.UI",
     "VContainer",

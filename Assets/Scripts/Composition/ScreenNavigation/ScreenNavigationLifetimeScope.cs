@@ -16,7 +16,10 @@ namespace Game.ScreenNavigation
             var screenRegistry = new ScreenRegistry(screens);
 
             foreach (var screen in screens)
-                builder.RegisterComponent(screen).As(screen.GetType());
+            {
+                var registration = builder.RegisterComponent(screen).As(screen.GetType());
+                if (screen is SkillTreeView) registration.As<ISkillTreeView>();
+            }
 
             builder.RegisterInstance(screenRegistry);
             builder.Register<ScreenNavigationHistory>(Lifetime.Scoped);
@@ -25,7 +28,7 @@ namespace Game.ScreenNavigation
             builder.Register<SettingsModel>(Lifetime.Scoped);
             builder.Register<ShopModel>(Lifetime.Scoped);
             builder.Register<InventoryModel>(Lifetime.Scoped);
-            builder.Register<SkillTreeModel>(Lifetime.Scoped);
+            builder.Register<SkillTreeModel>(Lifetime.Scoped).As<ISkillTreeModel>().AsSelf();
             builder.Register<RecipesModel>(Lifetime.Scoped);
             builder.Register<LevelModel>(Lifetime.Scoped);
             builder.Register<BattleRewardGranter>(Lifetime.Scoped);

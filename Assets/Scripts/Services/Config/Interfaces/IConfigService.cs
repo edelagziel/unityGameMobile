@@ -8,5 +8,6 @@ namespace Game.Services.Config
     public interface IConfigService
     {
         IEconomyConfig Economy { get; }
+        System.Collections.Generic.IReadOnlyList<Game.Services.Skills.SkillTreeDefinition> SkillTrees { get; }
     }
 }

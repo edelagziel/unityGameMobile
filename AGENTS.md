@@ -19,9 +19,10 @@ Battle Forge is a hybrid-casual card battler for Android, portrait, one thumb. B
   1. `ISaveService` → `PlayerPrefsSaveService`: generic `Save<T>` / `Load<T>`, each value as JSON in PlayerPrefs, written immediately. The only class that touches PlayerPrefs.
   2. `IConfigService` → `ScriptableObjectConfigService` receives the root asset from Bootstrap. Gameplay injects `IConfigService` and reads typed domains such as `config.Economy` (`IEconomyConfig`).
   3. `IWalletService` → `WalletService`: the player's Cash (`Add`, `TrySpend`, `CashChanged`), loaded from and saved through `ISaveService`.
+  4. `ISkillService` → `SkillService`: validates authored trees and grants owner-specific levels through the wallet's receipted purchase capability.
   Every service implements `IInitializableService`.
 - **How scenes get services**: a scope's parent is the Bootstrap scope, so its controllers receive services by constructor injection. `HomeLifetimeScope` gets that parent from `SceneLifetimeScope` (code); `ScreenNavigationLifetimeScope` from its Parent field in the Inspector (`BootstrapLifetimeScope`), so the navigation code doesn't depend on Game.
-- **Economy numbers** live in `EconomyConfig`. `BattleRewardGranter` selects the configured payout. `SkillTreeModel` calculates upgrade prices and checks the purchase limit using the configured curve.
+- **Economy numbers** live in `EconomyConfig`. `BattleRewardGranter` selects the configured payout. Skill levels use a fixed authored Cash price or the shared Upgrade curve through `SkillPricing`. The wallet saves Cash and purchase quantities together. See [skill tree authoring and storage](docs/SKILL_TREE.md).
 - **Home** has two scopes:
   - `ScreenNavigationLifetimeScope`: all screens. `IScreenNavigator` shows one screen at a time. The five tabs (Shop, Inventory, Battle/MainMenu, Skill tree, Recipes) are `TabbedScreenView`s and switch with `ResetTo`; Settings and Level open with `Push` and close with `Pop`.
   - `HomeLifetimeScope` owns Home-specific dependencies. It registers the HUD's `CashView` and `CashController`, which receives `IWalletService` from Bootstrap.

@@ -69,6 +69,7 @@ namespace Game.ScreenNavigation.Tests
             {
                 builder.RegisterInstance<IWalletService>(new FakeWallet());
                 builder.RegisterInstance<IConfigService>(config);
+                builder.RegisterInstance<Game.Services.Skills.ISkillService>(new Game.Services.Skills.SkillService(config, null));
             }))
             {
                 scope.Build();
